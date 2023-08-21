@@ -1,0 +1,72 @@
+class ProductManager {
+    constructor () {
+        this.products = [];
+    };
+
+    
+
+    addProduct(title, description, price, thumbnail, code, stock) {
+        //debe agregar un producto al arreglo de productos inicial: - validar que no se repita el campo "code" y que todos los campos sean obligatorios.
+        //Al agregarlo debe crearse con un id autoincrementable
+        let newId;
+        if (this.products.length == 0) {
+            newId = 1
+        } else {
+            newId = this.products[this.products.length - 1].id + 1
+        }
+        
+        
+        const nuevoProducto = {
+            id: newId,
+            title,
+            description,
+            price,
+            thumbnail,
+            code,
+            stock
+        }
+        
+
+        if (!title || !description || !price || !thumbnail || !code || !stock) {
+            console.log("faltan datos")
+        } else {
+            const codigoUnico = this.products.find(cod => cod.code === code);
+            if (!codigoUnico) {
+                this.products.push(nuevoProducto)
+                console.log(`el codigo es unico ${code}`);
+            } else {
+                console.log(`el codigo NO es unico ${code}`)
+            }
+        }
+    }
+    getProducts() {
+       console.log(this.products)
+    };
+
+    getProductsById(id) {
+        //debe buscar en el array el producto que coicida con el id, en caso de que no coincida con el id buscado, devolver por consola el error "Not Found"
+        const searchById = this.products.find(det => det.id === id)
+        if (!searchById) {
+            console.log("Not Found")
+        } else {
+            console.log(`EL ID ${id} BUSCADO ARROJÓ LOS SIGUIENTES DATOS: \n TITLE: ${searchById.title} \n DESCRIPTION: ${searchById.description} \n PRICE: ${searchById.price} \n THUMBNAIL: ${searchById.thumbnail} \n CODE: ${searchById.code} \n STOCK: ${searchById.stock}`)
+        }
+
+    }
+}
+
+
+
+
+const prodManager = new ProductManager();
+
+
+// prodManager.getProducts()
+prodManager.addProduct("Zapatillas", "Zapatilla suela blanca",100, "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp",1512, 50 )
+prodManager.addProduct("Remera", "Remera escote V",null, "https://acdn.mitiendanube.com/stores/001/218/661/products/28731-13-11-06138e4847ab5b419216909083565374-1024-1024.jpg",1068, 50 )
+prodManager.addProduct("Jean", "Jean chupin",250, "https://bensimon.com.ar/media/catalog/product/cache/936ae7ac83a4150e0e7d4b14746c4c07/4/7/47176_01_04_6.jpg",2032, 10 )
+prodManager.addProduct("Trench", "Trench hombre", "https://www.riseltd.com/uploads/picture/image/3275/AB230003-1.jpg",1023, 50 )
+prodManager.addProduct("Buzo", "Buzo hombre",null, "https://img.segmentify.com/s/fit-in/720x720/filters:fill(FFFFFF)/images.puma.net/images/535660/67/mod01/fnd/ARG/",2001, 10 )
+
+prodManager.getProducts();
+prodManager.getProductsById(2)
