@@ -1,0 +1,38 @@
+[
+	{
+		"id": 1,
+		"title": "Zapatillas",
+		"description": "Zapatilla suela blanca",
+		"price": 100,
+		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp",
+		"code": 1512,
+		"stock": 50
+	},
+	{
+		"id": 2,
+		"title": "Zapatillas",
+		"description": "Zapatilla suela blanca",
+		"price": 100,
+		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp",
+		"code": 1512,
+		"stock": 50
+	},
+	{
+		"id": 3,
+		"title": "Zapatillas",
+		"description": "Zapatilla suela blanca",
+		"price": 100,
+		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp",
+		"code": 1512,
+		"stock": 50
+	},
+	{
+		"id": 4,
+		"title": "Zapatillas",
+		"description": "Zapatilla suela blanca",
+		"price": 100,
+		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp",
+		"code": 1512,
+		"stock": 50
+	}
+]
