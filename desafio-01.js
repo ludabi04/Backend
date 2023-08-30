@@ -56,7 +56,7 @@ class ProductManager {
             if (productIndex === -1) {
                 return console.log("producto no encontrado")
             }
-            if (product.id ) {
+            if (!product.id ) {
                 return console.log("no se puede moficar este id")
             }
             contenidoJson[productIndex] = { ...contenidoJson[productIndex], ...product }
@@ -100,7 +100,7 @@ const operaciones = async () => {
                 }
             await manager.addProduct({ id: newId, title: "Zapatillas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 });
             await manager.updateProduct(3, { id: 3, title: "Zapatillasaaaaaaas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 });
-            await manager.deleteProducts(2)
+            await manager.deleteProducts(6)
         } catch (error) {
             console.log(error.message)
         }
