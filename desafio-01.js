@@ -26,23 +26,32 @@ class ProductManager {
         }
     };
 
-async updateProducts(id, productUpdated ) {
-        try {
-            if (this.fileExist()) {
-                const contenido = this.getProducts()
-                const contenidoJson = JSON.parse(contenido);
-                const contFiltered = contenidoJson.filter(ids=> ids.id == id)
-                return contFiltered[];
-            } else {
-                throw new Error("no es posible leer el archivo")
+getProductById(id){
+        //Traigo los productos
+        let products = this.getProducts()
+        //Hago el filter para traer solamente el producto que coincida con el id pasado por parámetro
+        let productFiltered = products.filter(prod=> prod.id == id)
+        //Devuelvo productFiltered[0] ya que es un array con un solo dato 
+        return productFiltered[0]
+}
+    
+    
+updateProduct(id, productUpdated){
+        //Traigo los productos
+        let products = this.getProducts()
+        
+        //Recorro el array de productos
+        let productsUpdated = products.map(prod=>{
+            //Si encuentro ese producto, guardo los nuevos datos y le agrego el id
+            if(prod.id == id) {
+                prod = productUpdated
+                prod.id = id
             }
-        }
-            catch (error) { 
-                console.log(error.message);
-                throw error;
-            
-        }
-    };
+            return prod
+        })
+        //Escribo el archivo con todos los productos (con la modificación)
+        this.writeFile(productsUpdated)
+    }
 
     async addProduct(prodInfo) {
         try {
@@ -78,7 +87,7 @@ const operaciones = async () => {
                     newId= prod[prod.length - 1].id + 1 
                 }
             await manager.addProduct({ id: newId, title: "Zapatillas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 });
-            await manager.updateProducts(([2]), { id: 34, title: "Zapatillas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 });
+            await manager.product.updateProduct,(2, {id: 34, title: "Zapatillas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 });
         } catch (error) {
             console.log(error.message)
         }
