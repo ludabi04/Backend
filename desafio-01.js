@@ -26,7 +26,23 @@ class ProductManager {
         }
     };
 
-
+async updateProducts(id, productUpdated ) {
+        try {
+            if (this.fileExist()) {
+                const contenido = this.getProducts()
+                const contenidoJson = JSON.parse(contenido);
+                const contFiltered = contenidoJson.filter(ids=> ids.id == id)
+                return contFiltered[];
+            } else {
+                throw new Error("no es posible leer el archivo")
+            }
+        }
+            catch (error) { 
+                console.log(error.message);
+                throw error;
+            
+        }
+    };
 
     async addProduct(prodInfo) {
         try {
@@ -61,7 +77,8 @@ const operaciones = async () => {
                 } else {
                     newId= prod[prod.length - 1].id + 1 
                 }
-            await manager.addProduct({ id: newId, title: "Zapatillas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 })
+            await manager.addProduct({ id: newId, title: "Zapatillas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 });
+            await manager.updateProducts(([2]), { id: 34, title: "Zapatillas", description: "Zapatilla suela blanca", price: 100, thumbnail: "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp", code: 1512, stock: 50 });
         } catch (error) {
             console.log(error.message)
         }
