@@ -2,7 +2,7 @@ import express from "express";
 import { ProductManagerFiles } from "./persistence/productManagerFiles.js";
 console.log(ProductManagerFiles)
 
-const managerProductService = new ProductManagerFiles("./src/files/productos.json")
+const managerProductService = new ProductManagerFiles("../src/files/productos.json")
 console.log(managerProductService)
 
 
@@ -34,20 +34,20 @@ app.get("/products", async (req, res) => {
 });
 
 
-app.get("/products/:userId", async (req, res) => { // los params siempre vienen en formato string, asi que si estoy pidiendo un dato numerico lo tengo que parsear
+app.get("/products/:userId", async (req, res) => {
     const products = await managerProductService.getProducts();
     const id = parseInt(req.params.userId);
     console.log(id)
     const searchProd = products.find(u => u.id === id);
     try {
         if (searchProd) {
-        res.send(searchProd)
-    } else {
-        res.send("usuario no encontrado")
-    }
+            res.send(searchProd)
+        } else {
+            res.send("producto no encontrado")
+        }
     } catch (error) {
         res.send(error.message)
     }
     
-})
+});
 
