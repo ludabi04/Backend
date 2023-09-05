@@ -33,23 +33,6 @@ app.get("/products", async (req, res) => {
     }
 });
 
-// app.get("/products/:prodId", async (req, res) => {
-//     try {
-//         const products = await managerProductService.getProducts();
-//         const id = parseInt(req.param.prodId);
-//         console.log(id)
-//         const productFilter = products.find(p=> p.id === id);
-//         if (products) {
-//             console.log(productFilter)
-//             res.send(productFilter)
-            
-//         }
-        
-//     } catch (error) {
-//         res.send(error.message)
-        
-//     }
-// });
 
 app.get("/products/:userId", async (req, res) => { // los params siempre vienen en formato string, asi que si estoy pidiendo un dato numerico lo tengo que parsear
     const products = await managerProductService.getProducts();
