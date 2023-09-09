@@ -2,7 +2,7 @@ import express from "express";
 import { ProductManagerFiles } from "./persistence/productManagerFiles.js";
 console.log(ProductManagerFiles)
 
-const managerProductService = new ProductManagerFiles("../src/files/productos.json")
+const managerProductService = new ProductManagerFiles("./src/files/productos.json")
 console.log(managerProductService)
 
 
