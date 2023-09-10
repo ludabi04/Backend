@@ -45,7 +45,26 @@ export class CartsManagerFiles{
             console.log(error.message);
             throw error;
         }
-    }
+    };
 
-
+    async getCartsById(cId) {
+        try {
+            if (this.fileExist()) {
+                const contenido = await fs.promises.readFile(this.path, "utf-8");
+                const carts = JSON.parse(contenido);
+                const cart = carts.filter(i=> i.id === cId)
+                if (!cart) {
+                    throw new Error("el producto no existe");
+                } else {return cart}
+                
+            } else {
+                throw new Error("no es posible leer el archivo")
+            }
+        }
+            catch (error) { 
+                console.log(error.message);
+                throw error;
+            
+        }
+    };
 }

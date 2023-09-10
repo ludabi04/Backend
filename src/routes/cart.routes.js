@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { cartsService, productsService } from "../persistence/index.js";
+import { cartsService } from "../persistence/index.js";
 
 const router = Router();
 
@@ -16,10 +16,26 @@ router.post("/", async (req, res) => {
         const carritoAgregado = await cartsService.addCart(cartInfo);
         res.json({ data: carritoAgregado });
     } catch (error) {
-                res.send(error.message)
+        res.send(error.message)
 
     }
-})
+});
+
+//http://localhost:8080/api/carts/cartId
+router.get("/:cartId", async (req, res) => {
+    try {
+        const cartId = parseInt(req.params.cartId);
+        const cart = await cartsService.getCartsById(cartId)
+        res.json({ message: "carrito por id" , data:cart});
+    } catch (error) {
+        res.json({status: "error", message:error.message})
+    }
+
+    
+});
+
+
+
 
 
 
