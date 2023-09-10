@@ -33,8 +33,19 @@ router.get("/:cartId", async (req, res) => {
 
     
 });
-
-
+// // / carritodId/products/.prodId
+// app.post("/:cId/products/:prodId", (req, res) => {
+//     const queryParam = req.query.cId;
+//     console.log(queryParam)
+//     const gender = queryParam.gender;
+//     const age = parseInt(queryParam.age);
+//     if (queryParam) {
+//         const user = users.filter(u => u.age === age && u.gender === gender)
+//         res.send(user)
+//     } else {
+//         res.send("no hay nadie con ese genero")
+//     }
+// });
 
 
 

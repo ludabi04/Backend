@@ -11,13 +11,13 @@ export class ProductManagerFiles {
     async addProduct(prodInfo) {
         try {
         
-            if (this.fileExist()) { 
-                const contenido = await fs.promises.readFile(this.path,"utf-8");
+            if (this.fileExist()) {
+                const contenido = await fs.promises.readFile(this.path, "utf-8");
                 const contenidoJson = JSON.parse(contenido);
                 
                 contenidoJson.push(prodInfo);
-                await fs.promises.writeFile(this.path, JSON.stringify(contenidoJson,null,"\t"));
-                console.log("producto agregado");
+                await fs.promises.writeFile(this.path, JSON.stringify(contenidoJson, null, "\t"));
+                return console.log("producto agregado correctamente");
                 
         
             } else {
@@ -39,9 +39,9 @@ export class ProductManagerFiles {
                 throw new Error("no es posible leer el archivo")
             }
         }
-            catch (error) { 
-                console.log(error.message);
-                throw error;
+        catch (error) {
+            console.log(error.message);
+            throw error;
             
         }
     };
@@ -51,20 +51,58 @@ export class ProductManagerFiles {
             if (this.fileExist()) {
                 const contenido = await fs.promises.readFile(this.path, "utf-8");
                 const products = JSON.parse(contenido);
-                const product = products.filter(i=> i.id === productId)
+                const product = products.filter(i => i.id === productId)
                 if (!product) {
                     throw new Error("el producto no existe");
-                } else {return product}
+                } else { return product }
                 
             } else {
                 throw new Error("no es posible leer el archivo")
             }
         }
-            catch (error) { 
-                console.log(error.message);
-                throw error;
+        catch (error) {
+            console.log(error.message);
+            throw error;
             
         }
     };
+
+    async updateProductsById(id, product) {
+        try {
+            const contenido = await fs.promises.readFile(this.path, "utf-8");
+            const contenidoJson = JSON.parse(contenido);
+            let productIndex = contenidoJson.findIndex(prod => prod.id == id)
+            if (productIndex === -1) {
+                return console.log("producto no encontrado")
+            }
+            if (!product.id) {
+                return console.log("no se puede moficar este id")
+            }
+            contenidoJson[productIndex] = { ...contenidoJson[productIndex], ...product }
+            const productsString = JSON.stringify(contenidoJson, null, 2);
+            await fs.promises.writeFile(this.path, productsString);
+            return console.log("producto actualizado correctamente")
+        
+        } catch (error) {
+            console.log("error", error.message)
+        }
+    };
+
+    async deleteProducts(id) {
+        try {
+            const contenido = await fs.promises.readFile(this.path,"utf-8");
+            const contenidoJson = JSON.parse(contenido);
+            let productIndex = contenidoJson.findIndex(prod => prod.id == id)
+            if (productIndex === -1) {
+                return console.log("producto no encontrado")
+            }
+            contenidoJson.splice(productIndex, 1)
+            const productsString = JSON.stringify(contenidoJson, null, 2);
+            await fs.promises.writeFile(this.path, productsString);
+            return console.log("producto eliminado correctamente")
+        } catch (error) {
+            console.log("error", error.message)
+        }
+    }
 
 }

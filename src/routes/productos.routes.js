@@ -38,11 +38,38 @@ router.post("/", async (req, res) => {
     try {
         const prodInfo = req.body;
         const prodInfoAdd = await productsService.addProduct(prodInfo);
-        res.json({ data: prodInfoAdd });
+        res.json({ message: "agregado correctamente", data: prodInfoAdd  });
         } catch (error) {
         res.send(error.message)
         }
-    })
+})
+    
+//http://localhost:8080/api/products/prodId
+router.put("/:prodId", async (req, res) => {
+    try {
+        const productId = parseInt(req.params.prodId);
+        const productUpdate = req.body;
+        const product = await productsService.updateProductsById(productId, productUpdate)
+        res.json({ message: "producto por id" , data:productUpdate});
+    } catch (error) {
+        res.json({status: "error", message:error.message})
+    }
+
+    
+});
+
+router.delete("/:prodId", async (req, res) => {
+    try {
+        const productId = parseInt(req.params.prodId);
+        const product = await productsService.deleteProducts(productId)
+        res.json({ message: "id "+productId+" eliminado correctamente" , data:product});
+    } catch (error) {
+        res.json({status: "error", message:error.message})
+    }
+
+    
+});
+
 
 
 
