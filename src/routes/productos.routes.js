@@ -49,7 +49,9 @@ router.post("/", async (req, res) => {
 router.put("/:prodId", async (req, res) => {
     try {
         const productId = parseInt(req.params.prodId);
+        console.log("productID"+productId)
         const productUpdate = req.body;
+        console.log("ProductUpdate"+productUpdate)
         const product = await productsService.updateProductsById(productId, productUpdate)
         res.json({ message: "producto por id" , data:productUpdate});
     } catch (error) {

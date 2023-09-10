@@ -50,8 +50,10 @@ export class ProductManagerFiles {
                 const products = JSON.parse(contenido);
                 const product = products.filter(i => i.id === productId)
                 if (!product) {
-                    throw new Error("el producto no existe");
-                } else { return product }
+                    throw new Error ("el producto no existe")
+                } else {
+                    return product
+                } 
                 
             } else {
                 throw new Error("no es posible leer el archivo")
@@ -64,18 +66,16 @@ export class ProductManagerFiles {
         }
     };
 
-    async updateProductsById(id, product) {
+    async updateProductsById(productId, productUpdate) {
         try {
             const contenido = await fs.promises.readFile(this.path, "utf-8");
             const contenidoJson = JSON.parse(contenido);
-            let productIndex = contenidoJson.findIndex(prod => prod.id == id)
+            let productIndex = contenidoJson.findIndex(prod => prod.id === productId)
+            console.log("productIndex" + productIndex    )
             if (productIndex === -1) {
                 return console.log("producto no encontrado")
             }
-            if (!product.id) {
-                return console.log("no se puede moficar este id")
-            }
-            contenidoJson[productIndex] = { ...contenidoJson[productIndex], ...product }
+            contenidoJson[productIndex] = { ...contenidoJson[productIndex], ...productUpdate }
             const productsString = JSON.stringify(contenidoJson, null, 2);
             await fs.promises.writeFile(this.path, productsString);
             return console.log("producto actualizado correctamente")
