@@ -38,7 +38,8 @@ router.post("/", async (req, res) => {
     try {
         const prodInfo = req.body;
         const prodInfoAdd = await productsService.addProduct(prodInfo);
-        res.json({ message: "agregado correctamente", data: prodInfoAdd  });
+        res.json({ message: "agregado correctamente", data: prodInfoAdd });
+        console.log(prodInfo)
         } catch (error) {
         res.send(error.message)
         }

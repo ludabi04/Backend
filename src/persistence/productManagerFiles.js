@@ -10,16 +10,13 @@ export class ProductManagerFiles {
 
     async addProduct(prodInfo) {
         try {
-        
             if (this.fileExist()) {
                 const contenido = await fs.promises.readFile(this.path, "utf-8");
                 const contenidoJson = JSON.parse(contenido);
-                
-                contenidoJson.push(prodInfo);
+                const productosTotales = contenidoJson.length+1
+                contenidoJson.push({"id": productosTotales, ...prodInfo})
                 await fs.promises.writeFile(this.path, JSON.stringify(contenidoJson, null, "\t"));
                 return console.log("producto agregado correctamente");
-                
-        
             } else {
                 throw new Error("no es posible guardar el producto")
             }
