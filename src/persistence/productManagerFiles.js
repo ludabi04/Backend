@@ -10,7 +10,7 @@ export class ProductManagerFiles {
 
     async addProduct(prodInfo) {
         try {
-         
+        
             if (this.fileExist()) { 
                 const contenido = await fs.promises.readFile(this.path,"utf-8");
                 const contenidoJson = JSON.parse(contenido);
