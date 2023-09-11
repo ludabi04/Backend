@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { cartsService } from "../persistence/index.js";
+import { cartsService, productsService } from "../persistence/index.js";
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     try {
         const cartInfo = req.body;
         const carritoAgregado = await cartsService.addCart(cartInfo);
-        res.json({ data: carritoAgregado });
+        res.json({message: "carrito agregado", data: carritoAgregado });
     } catch (error) {
         res.send(error.message)
 
@@ -33,6 +33,31 @@ router.get("/:cartId", async (req, res) => {
 
     
 });
+
+
+router.put("/:cartId/products/:prodId", async (req, res) => {
+       try {
+        const cartId = parseInt(req.params.cartId);
+        console.log(cartId)
+        const prodId = parseInt(req.params.prodId);
+        const carts = await cartsService.getCartsById(cartId)
+        const idExists = carts.find(cid => cid.id === cartId)
+        const product = await productsService.getProductsById(prodId)
+        const productExists = product.find(pid => pid.id === prodId);
+        
+           if (idExists && productExists) {
+            const productoEnId = await cartsService.addProductInCart(cartId, productExists, prodId)
+            
+        } else {
+            console.log ("el carrito o el producto no existe")
+        }
+
+        res.json({message: "peticion recibida", cartId, prodId});
+    } catch (error) {
+        res.send(error.message)
+
+    }}
+)
 // // / carritodId/products/.prodId
 // app.post("/:cId/products/:prodId", (req, res) => {
 //     const queryParam = req.query.cId;
