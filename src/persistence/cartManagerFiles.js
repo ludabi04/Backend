@@ -19,6 +19,7 @@ export class CartsManagerFiles{
                 contenidoJson.push({"id" : carritosTotales, ...cartInfo});
                 await fs.promises.writeFile(this.path, JSON.stringify(contenidoJson,null,"\t"));
                 console.log("carrito agregado");
+                return carritosTotales;
             } else {
                 throw new Error("no es posible guardar el carrito")
             }
@@ -54,7 +55,7 @@ export class CartsManagerFiles{
                 if (!cart) {
                     throw new Error("el producto no existe");
                 } else {return cart}
-                
+            
             } else {
                 throw new Error("no es posible leer el archivo")
             }
@@ -72,27 +73,20 @@ export class CartsManagerFiles{
         try {
             const contenido = await fs.promises.readFile(this.path, "utf-8");
             const contenidoJson = JSON.parse(contenido);
-            console.log("a",contenidoJson)
-            // console.log("cartId " + cartId, "prodId" + prodId, "productExist"+ productExists )
-            let productIndex = contenidoJson.findIndex((prod) => {return prod.id === cartId});
-            console.log("productIndex" + productIndex    )
-            if (productIndex === -1) {
-                contenidoJson[cartId].push({
-                    id: cartId,
-                    quentity: 1
-                })
-            } else {console.log("S",productExists)
-                if(productExists.quantity!=undefined){
-                    console.log("a")
-                    productExists.quantity+=1
-                }else{
-                    console.log("b")
-                    productExists.quantity=1
-                }
-            contenidoJson[productIndex].products.push(productExists) 
+            let carrito = await this.getCartsById(cartId)
+            let indiceCarrito = contenidoJson.findIndex(cart=> cart.id == carrito[0].id)
+            
+            let productFiltered = carrito[0].products.findIndex(product=> product.id == prodId)
+           
+            if(productFiltered === -1){
+                productExists.quantity = 1
+                contenidoJson[indiceCarrito].products.push(productExists)
+            }else{
+                contenidoJson[indiceCarrito].products[productFiltered].quantity += 1
+            }
             const productsString = JSON.stringify(contenidoJson, null, 2);
             await fs.promises.writeFile(this.path, productsString);
-            return console.log("producto actualizado correctamente")}
+            return console.log("producto actualizado correctamente")
         
         } catch (error) {
             console.log("error", error.message)
