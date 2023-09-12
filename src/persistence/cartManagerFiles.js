@@ -66,36 +66,36 @@ export class CartsManagerFiles{
         }
     };
 
-    async addProductInCart(cartId, productExist, prodId) {
+   
+
+    async updateCartsById(cartId, prodId, productExists) {
         try {
             const contenido = await fs.promises.readFile(this.path, "utf-8");
-            const carts = JSON.parse(contenido); 
-            let productIndex = carts.findIndex(prod => prod.id === cartId)
-            console.log("prod index", productIndex)
-            const objeto = carts[productIndex];
-            const productoObjeto = objeto.products
-            productoObjeto.push({"quantity" : 1, ...productExist})            
-            
+            const contenidoJson = JSON.parse(contenido);
+            console.log("a",contenidoJson)
+            // console.log("cartId " + cartId, "prodId" + prodId, "productExist"+ productExists )
+            let productIndex = contenidoJson.findIndex((prod) => {return prod.id === cartId});
+            console.log("productIndex" + productIndex    )
+            if (productIndex === -1) {
+                contenidoJson[cartId].push({
+                    id: cartId,
+                    quentity: 1
+                })
+            } else {console.log("S",productExists)
+                if(productExists.quantity!=undefined){
+                    console.log("a")
+                    productExists.quantity+=1
+                }else{
+                    console.log("b")
+                    productExists.quantity=1
+                }
+            contenidoJson[productIndex].products.push(productExists) 
+            const productsString = JSON.stringify(contenidoJson, null, 2);
+            await fs.promises.writeFile(this.path, productsString);
+            return console.log("producto actualizado correctamente")}
+        
         } catch (error) {
-            throw error
+            console.log("error", error.message)
         }
     };
-
-    // async updateCartsById(cartId, productId, productExists) {
-    //     try {
-    //         const contenido = await fs.promises.readFile(this.path, "utf-8");
-    //         const contenidoJson = JSON.parse(contenido);
-    //         let productIndex = contenidoJson.findIndex(prod => prod.id === productId)
-    //         console.log("productIndex" + productIndex    )
-    //         if (productIndex === -1) {
-    //             return console.log("producto no encontrado")
-    //         }
-    //         contenidoJson[productIndex] = { ...contenidoJson[productIndex], ...productUpdate }
-    //         const productsString = JSON.stringify(contenidoJson, null, 2);
-    //         await fs.promises.writeFile(this.path, productsString);
-    //         return console.log("producto actualizado correctamente")
-        
-    //     } catch (error) {
-    //         console.log("error", error.message)
-    //     }
-    };
+}

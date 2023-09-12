@@ -40,13 +40,14 @@ router.put("/:cartId/products/:prodId", async (req, res) => {
         const cartId = parseInt(req.params.cartId);
         console.log(cartId)
         const prodId = parseInt(req.params.prodId);
-        const carts = await cartsService.getCartsById(cartId)
+        const carts = await cartsService.getCartsById(cartId);
+        console.log(carts)
         const idExists = carts.find(cid => cid.id === cartId)
         const product = await productsService.getProductsById(prodId)
         const productExists = product.find(pid => pid.id === prodId);
         
            if (idExists && productExists) {
-            const productoEnId = await cartsService.addProductInCart(cartId, productExists, prodId)
+            const productoEnId = await cartsService.updateCartsById(cartId, prodId, productExists)
             
         } else {
             console.log ("el carrito o el producto no existe")
