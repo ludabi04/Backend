@@ -4,8 +4,6 @@ console.log(ProductManagerFiles)
 import { productRouter } from "./routes/productos.routes.js";
 import { cartsRouter } from "./routes/cart.routes.js";
 
-
-
 const managerProductService = new ProductManagerFiles("./src/files/productos.json")
 console.log(managerProductService)
 
