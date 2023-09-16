@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     try {
         const products = await productsService.getProducts();
         const data = { productos: products }
-        res.render("home", data)
+        res.render("home", {...data, style: "home.css"})
     } catch (error) {
         
     }
