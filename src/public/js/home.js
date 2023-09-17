@@ -1,1 +1,1 @@
-console.log("archivo js para la vista home")
+console.log("archivo js para la vista home")  
