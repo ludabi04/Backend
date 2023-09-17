@@ -5,6 +5,10 @@ const socketClient = io();
 const productList = document.getElementById("productList");
 const createProductForm = document.getElementById("createProductForm");
 
+
+
+
+
 // enviamos la info del form al socket del servidor
 createProductForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -19,10 +23,13 @@ createProductForm.addEventListener("submit", (e) => {
     //envio el objeto de info del producto al servidor
     socketClient.emit("addProduct", jsonData);
     createProductForm.reset();
-})
+});
 
+function eliminar(id) {
+    console.log("elminando", id);
+    socketClient.emit("eliminarElemento", id)
+}
 
-    
 // recibimos los productos del cliente
 socketClient.on("productosGuardados", (data) => {
     let prodElem = "";
@@ -31,11 +38,13 @@ socketClient.on("productosGuardados", (data) => {
         `<div class="card" style="width: 18rem;">
             <img src=${elm.thumbnail} class="card-img-top" alt="...">
         <div class="card-body">
-        <h5 class="card-title">${elm.title}</h5>
+        <p>ID: #${elm.id}</p>
+        <h5 class="card-title" id="title">${elm.title}</h5>
         <p class="card-text">Disponibles: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <button onclick=eliminar(${elm.id})>Eliminar</button>
+        
   </div>
 </div>`  
     });

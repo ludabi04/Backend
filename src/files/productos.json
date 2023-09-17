@@ -1,52 +1,32 @@
 [
-	{
-		"id": 1,
-		"title": "Modificado1235",
-		"description": "Zapatilla suela blanca",
-		"price": 100,
-		"status": true,
-		"stock": 50,
-		"category": "Calzado",
-		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp"
-	},
-	{
-		"id": 2,
-		"title": "Modificado1235",
-		"description": "Zapatilla suela blanca",
-		"price": 100,
-		"status": true,
-		"stock": 50,
-		"category": "Calzado",
-		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp"
-	},
-	{
-		"id": 3,
-		"title": "Modificado123",
-		"description": "Zapatilla asdasdasdsuela blanca",
-		"price": 100,
-		"status": true,
-		"stock": 50,
-		"category": "Calzado",
-		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp"
-	},
-	{
-		"id": 4,
-		"title": "Modificado1",
-		"description": "Zapatilla suela blanca",
-		"price": 100,
-		"status": true,
-		"stock": 50,
-		"category": "Calzado",
-		"thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp"
-	},
-	{
-		"id": 5,
-		"title": "Remera",
-		"description": "Escote en V",
-		"price": 299,
-		"status": "true",
-		"stock": "10",
-		"category": "Remera",
-		"thumbnail": "https://acdn.mitiendanube.com/stores/188/770/products/7-1-11-1e3c7b7aec7a10843f16790543403175-640-0.webp"
-	}
+  {
+    "id": 1,
+    "title": "Modificado1235",
+    "description": "Zapatilla suela blanca",
+    "price": 100,
+    "status": true,
+    "stock": 50,
+    "category": "Calzado",
+    "thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp"
+  },
+  {
+    "id": 2,
+    "title": "Modificado1235",
+    "description": "Zapatilla suela blanca",
+    "price": 100,
+    "status": true,
+    "stock": 50,
+    "category": "Calzado",
+    "thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp"
+  },
+  {
+    "id": 3,
+    "title": "Modificado123",
+    "description": "Zapatilla asdasdasdsuela blanca",
+    "price": 100,
+    "status": true,
+    "stock": 50,
+    "category": "Calzado",
+    "thumbnail": "https://acdn.mitiendanube.com/stores/871/214/products/4428_ma_v2_0008_4434_ngr_v2-68bc3cb59eee94d9d415674506252590-1024-1024.webp"
+  }
 ]

@@ -47,11 +47,14 @@ socketServer.on("connection", async (socket) => {
     const products = await productsService.getProducts()
     //enviando los productos al cliente
     socket.emit("productosGuardados", products);
-// recibir los datos del producto desde el 
+    // recibir los datos del producto desde el 
     socket.on("addProduct", async (data) => {
         const result = await productsService.addProduct(data);
         const products = await productsService.getProducts();
         socket.emit("productosActualizados", products);
+    });
+    socket.on("eliminarElemento", async (data) => {
+        const prodEliminar = await productsService.deleteProducts(data)
+        socket.emit("productosActualizados", data)
+    })
 })
-
-});
