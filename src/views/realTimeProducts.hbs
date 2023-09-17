@@ -1,0 +1,15 @@
+<h1>Listado de productos y agregar</h1>
+
+<p>Listado de productos</p>
+{{#each productos}} {{!--le indico de que array voy a renderizar --}}
+<div>
+    <div class="card" style="width: 18rem;">
+        <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    {{/each}}
+    <br>

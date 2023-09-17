@@ -15,9 +15,18 @@ router.get("/", async (req, res) => {
     } catch (error) {
         
     }
-    
-
 });
+
+router.get("/realTimeProducts", async (req, res) => {
+    try {
+        const products = await productsService.getProducts();
+        const data = { productos: products }
+        res.render("realTimeProducts", {...data, style: "home.css"})
+    } catch (error) {
+        
+    }
+});
+
 
 
 
