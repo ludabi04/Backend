@@ -1,62 +1,48 @@
 <h1>Listado de productos y agregar</h1>
 
-<form style="width: 50%; text-align:center">
-    <div class="mb-3">
-        <label for="text" class="form-label">Titulo</label>
-        <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="text" class="form-label">Descripcion</label>
-        <input type="email" class="form-control" id="description" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="number" class="form-label">Precio</label>
-        <input type="email" class="form-control" id="price" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="number" class="form-label">Status</label>
-        <select class="form-select" aria-label="Default select example" id="status">
-            <option selected>Selecione...</option>
-            <option value="1">True</option>
-            <option value="2">False</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="number" class="form-label">Stock</label>
-        <input type="email" class="form-control" id="stock" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="text" class="form-label">Categoria</label>
-        <input type="text" class="form-control" id="category" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="text" class="form-label">URL de la imagen</label>
-        <input type="text" class="form-control" id="thumbnail" aria-describedby="emailHelp">
-    </div>
-    <button type="submit" class="btn btn-primary" id="enviar" >Submit</button>
+
+<form id="createProductForm">
+<div class="mb-3">
+    <label>Titulo</label>
+    <input type="text"  name="title" id="title" />
+</div>
+<div class="mb-3">
+    <label >Descripción</label>
+    <input type="text" name="description" id="description" />
+</div>
+<div class="mb-3">
+    <label>Precio</label>
+    <input type="number" name="price" id="price" />
+</div>
+<div class="mb-3">
+    <label>Status</label>
+    <input type="text" name="status" id="status" />
+</div>
+<div class="mb-3">
+    <label>Stock</label>
+    <input type="number" name="stock" id="stock" />
+</div>
+<div class="mb-3">
+    <label>Categoria</label>
+    <input type="text" name="category" id="category" />
+</div>
+<div class="mb-3">
+    <label>Url de imagen</label>
+    <input type="text" name="thumbnail" id="thumbnail" />
+</div>
+
+<button type="sumbit" id="btnEnviar">Agregar prod</button>
 </form>
 
-<input type="text" id="prodTitle"/>
+<hr>
 
 
+<h3>Listado de productos actualizado</h3> 
+{{!-- le indico de que array voy a renderizar --}}
+
+<div id="productList">
+
+</div>
 {{!-- importar socket.io desde el front --}}
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script>
-
-
-<h2>Agregar productos</h2>
-
-    
-<h3>Listado de productos</h3>
-{{#each productos}} {{!--le indico de que array voy a renderizar--}}
-<div>
-    <div class="card" style="width: 18rem;">
-        <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{this.title}}</h5>
-            <p class="card-text">{{this.description}}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    {{/each}}
-    <br> 
