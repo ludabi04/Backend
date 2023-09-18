@@ -1,0 +1,57 @@
+* {
+    background-color: skyblue
+}
+.menu{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: center;
+   height: 2rem;
+   background-color: skyblue;
+}
+
+.menuItem {
+    text-decoration: none;
+    color: black;
+    font-size: 1.3rem;
+}
+
+.title {
+    text-align: center;
+    padding-bottom: 5rem;
+    padding-top: 3rem;
+}
+
+.addAndSee {
+    display: grid;
+    grid-template-areas: "add add see see";
+    text-align: center;
+    background-color: skyblue;
+}
+
+
+.add {
+    grid-area: add;
+    text-align: center;
+    
+}
+
+.see {
+    grid-area: see;
+    color: rgb(21, 18, 18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+label {
+    width: 8rem;
+}
+
+.tarjeta {
+        border: 2px solid
+}
+
+
+

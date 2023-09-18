@@ -35,7 +35,7 @@ socketClient.on("productosGuardados", (data) => {
     let prodElem = "";
     data.forEach(elm => {
         prodElem +=
-        `<div class="card" style="width: 18rem;">
+        `<div class="card" style="width: 18rem; border: 2px solid">
             <img src=${elm.thumbnail} class="card-img-top" alt="...">
         <div class="card-body">
         <p>ID: #${elm.id}</p>

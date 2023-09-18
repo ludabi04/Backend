@@ -12,14 +12,14 @@ router.get("/", async (req, res) => {
     
         const products = await productsService.getProducts();
         const data = { productos: products }
-        res.render("home", {...data, style: "home.css"})
+        res.render("home", {...data, style: "index.css"})
 });
 
 router.get("/realtimeproducts", async (req, res) => {
     try {
         const products = await productsService.getProducts();
         const data = { productos: products }
-        res.render("realTimeProducts", {...data, style: "home.css"})
+        res.render("realTimeProducts", {...data, style: "realtimeproducts.css"})
     } catch (error) {
         
     }
