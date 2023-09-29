@@ -1,1 +1,12 @@
-[]
+[
+	{
+		"id": 1,
+		"title": "Prueba",
+		"description": "ads",
+		"price": null,
+		"status": "",
+		"stock": "",
+		"category": "",
+		"thumbnail": ""
+	}
+]
