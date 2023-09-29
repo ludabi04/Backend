@@ -24,7 +24,7 @@
 
 .addAndSee {
     display: grid;
-    grid-template-areas: "add add see see";
+    grid-template-areas: "add add see see chat chat";
     text-align: center;
     background-color: skyblue;
 }
@@ -43,6 +43,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+}
+
+.chat {
+    grid-area: chat;
 }
 
 label {

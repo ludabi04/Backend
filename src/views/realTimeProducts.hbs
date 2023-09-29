@@ -43,13 +43,24 @@
     <hr>
 
     <div class="see">
-    <h3>Listado de productos actualizado</h3> 
-    {{!-- le indico de que array voy a renderizar --}}
+        <h3>Listado de productos actualizado</h3> 
+        {{!-- le indico de que array voy a renderizar --}}
 
-    <div id="listProd">
+        <div id="productList">
 
+
+        </div>
     </div>
+
+    <div class="chat">Chat
+        <input type="text" id="input"/>
+        <button onclick=enviar()>Enviar</button>
+        <div id="bodyMsg">
+
+        </div>
     </div>
+
+
 </div>
 {{!-- importar socket.io desde el front --}}
 <script src="/socket.io/socket.io.js"></script>

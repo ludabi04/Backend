@@ -2,7 +2,7 @@ console.log("socket js para el front");
 
 const socketClient = io();
 
-const productList = document.getElementById("listProd");
+const productList = document.getElementById("productList");
 const createProductForm = document.getElementById("createProductForm");
 
 // enviamos la info del form al socket del servidor
@@ -15,18 +15,31 @@ createProductForm.addEventListener("submit", (e) => {
         jsonData[key] = value;
     };
     jsonData.price = parseInt(jsonData.price);
+    socketClient.emit("addProduct", jsonData);
     console.log("jsonData", jsonData);
     //envio el objeto de info del producto al servidor
-    socketClient.emit("addProduct", jsonData);
     createProductForm.reset();
 });
 
 function eliminar(id) {
-    console.log("elminando", id);
     socketClient.emit("eliminarElemento", id)
+    console.log("elminando", id);
+}
+let input = document.getElementById("input")
+function enviar() {
+    let data = input.value;
+    console.log(data)
+    socketClient.emit("mensajeEnviado", data)
 }
 
-// recibimos los productos del cliente
+
+
+const mensajes = document.getElementById("bodyMsg")
+socketClient.on("reenvio", (data) => {
+    bodyMsg.innerHTML = data
+})
+
+// recibimos los productos del cliente 
 socketClient.on("productosGuardados", (data) => {
     let prodElem = "";
     data.forEach(elm => {
@@ -44,10 +57,16 @@ socketClient.on("productosGuardados", (data) => {
 </div> 
 </div>` 
 });
-    productList.innerHTML = prodElem
+    productList.innerHTML = prodElem;
 });
 
 socketClient.on("productosActulizados", (data) => {
     prodElem = data;
 });
+socketClient.on("prueba", (data) => {
+    prodElem = data;
+    productList.innerHTML = prodElem
+});
+
+
 

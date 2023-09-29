@@ -12,12 +12,12 @@ router.get("/", async (req, res) => {
         const products = await productsService.getProducts();
         if (limit) {
             const productsLimit = products.slice(0, limitNumber);
-            res.json({status: "succes", data: productsLimit})
+            res.json({status: "success", data: productsLimit})
         } else {
             res.json({status: "succes", data: products})
         }
     } catch (error) {
-        res.status(500).json({ status: "error", error:error.message})
+        res.json({ status: "error", error:error.message})
     }
 });
 

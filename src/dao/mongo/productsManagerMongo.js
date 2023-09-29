@@ -16,7 +16,7 @@ export class productsManagerMongo {
 
         }
     };
-    async getProducts(productsModel) { // aca se puede poner el filtro ()
+    async getProducts() { // aca se puede poner el filtro ()
          try {
             const result = await this.model.find();
             return result;
