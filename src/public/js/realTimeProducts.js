@@ -2,12 +2,8 @@ console.log("socket js para el front");
 
 const socketClient = io();
 
-const productList = document.getElementById("productList");
+const productList = document.getElementById("listProd");
 const createProductForm = document.getElementById("createProductForm");
-
-
-
-
 
 // enviamos la info del form al socket del servidor
 createProductForm.addEventListener("submit", (e) => {
@@ -43,15 +39,15 @@ socketClient.on("productosGuardados", (data) => {
         <p class="card-text">Disponibles: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
-        <button onclick=eliminar(${elm._id})>Eliminar</button>
+        <button onclick=eliminar("${elm._id}")>Eliminar</button>
         
-</div>
-</div>`  
-    });
-    productList.innerHTML = prodElem;
+</div> 
+</div>` 
+});
+    productList.innerHTML = prodElem
 });
 
 socketClient.on("productosActulizados", (data) => {
     prodElem = data;
-})
+});
 

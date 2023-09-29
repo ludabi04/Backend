@@ -30,9 +30,15 @@ const productSchema = new mongoose.Schema({
         reqquired: true,
         // enums:["Jean", "Remera", "Pantalon", "buzo"]
     },
+    code: {
+        type: Number,
+        
+    },
     thumbnail: {
 
     }
 })
+
+
 
 export const productsModel = mongoose.model(productsCollection, productSchema)

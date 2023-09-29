@@ -38,7 +38,7 @@ export class productsManagerMongo {
      }
     async updateProductsById(productId, productUpdate) {
         try {
-            const result = await this.model.updateOne({_id: productId}, productUpdate);
+            const result = await this.model.updateOne({ _id: productId, productUpdate });
             return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)
@@ -46,7 +46,9 @@ export class productsManagerMongo {
 
         }
      }
-    async deleteProducts(id) { try {
+    async deleteProducts(id) {
+        try {
+        
         const result = await this.model.findByIdAndDelete(id);
             return result;
         } catch (error) {

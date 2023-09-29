@@ -27,7 +27,7 @@ const socketServer = new Server(httpServer);
 
 //conexion a bBDD
 
-connectDB();
+
 
 
 app.use(express.urlencoded({extended:true})) // permite caracteres especiales
@@ -60,7 +60,8 @@ socketServer.on("connection", async (socket) => {
         socket.emit("productosActualizados", products);
     });
     socket.on("eliminarElemento", async (data) => {
-        const prodEliminar = await productsService.deleteProducts(data)
+        const prodEliminar = await productsService.deleteProducts(data);
         socket.emit("productosActualizados", data)
     })
 })
+connectDB(); 
