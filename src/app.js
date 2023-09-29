@@ -9,9 +9,10 @@ import { viewsRouter } from "./routes/views.routes.js";
 import { Server } from "socket.io";
 import { productsService } from "./dao/index.js";
 import { connectDB } from "./config/dbConnection.js";
+import { productsManagerMongo } from "./dao/mongo/productsManagerMongo.js";
 
 
-const managerProductService = new ProductManagerFiles("./src/files/productos.json")
+const managerProductService = new productsManagerMongo()
 console.log(managerProductService)
 
 
@@ -44,16 +45,17 @@ app.set('views', path.join(__dirname, "/views"));
 
 //routes
 app.use(viewsRouter);
-app.use("/api/products", productRouter);
-app.use("/api/carts", cartsRouter);
+app.use("/realtimeproducts", productRouter)
+// app.use("/api/products", productRouter);
+// app.use("/api/carts", cartsRouter);
 
 //configuracion del socket server
 
 socketServer.on("connection", async (socket) => {
     const products = await productsService.getProducts()
-    console.log(products)
+    // console.log(products)
     //enviando los productos al cliente
-    socketServer.emit("productosGuardados", products);
+    socket.emit("productosGuardados", products);
     // recibir los datos del producto desde el 
     socket.on("addProduct", async (data) => {
         await productsService.addProduct(data);
@@ -61,8 +63,10 @@ socketServer.on("connection", async (socket) => {
         socket.emit("productosActualizados", products);
     });
     socket.on("eliminarElemento", async (data) => {
-        const prodEliminar = await productsService.deleteProducts(data);
-        socket.emit("productosActualizados", data);
+        console.log("data para eliminar", data)
+        await productsService.deleteProducts(data);
+        const products = await productsService.getProducts();
+        socket.emit("productosActualizados", products);
     })
     socket.on("mensajeEnviado", (data) => {
         console.log(data)

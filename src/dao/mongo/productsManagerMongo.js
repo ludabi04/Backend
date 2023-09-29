@@ -46,10 +46,9 @@ export class productsManagerMongo {
 
         }
      }
-    async deleteProducts(id) {
+    async deleteProducts(dato) {
         try {
-        
-        const result = await this.model.findByIdAndDelete(id);
+        const result = await this.model.findByIdAndDelete(dato);
             return result;
         } catch (error) {
             console.log("error al eliminar productos")

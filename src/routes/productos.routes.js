@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
             res.json({status: "succes", data: products})
         }
     } catch (error) {
-        res.json({ status: "error", error:error.message})
+        res.json({ status: "error", message:error.message})
     }
 });
 
@@ -71,7 +71,7 @@ router.delete("/:prodId", async (req, res) => {
         res.json({status: "error", message:error.message})
     }
 
-    
+     
 });
 
 
