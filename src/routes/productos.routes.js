@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { productsService } from "../persistence/index.js";
+import { productsService } from "../dao/index.js";
 
 const router = Router();
+
 
 //http://localhost:8080/api/products
 router.get("/", async (req, res) => {
@@ -11,12 +12,12 @@ router.get("/", async (req, res) => {
         const products = await productsService.getProducts();
         if (limit) {
             const productsLimit = products.slice(0, limitNumber);
-            res.send(productsLimit)
+            res.json({status: "succes", data: productsLimit})
         } else {
-            res.send(products)
+            res.json({status: "succes", data: products})
         }
     } catch (error) {
-        res.send(error.message)
+        res.status(500).json({ status: "error", error:error.message})
     }
 });
 
@@ -39,7 +40,7 @@ router.post("/", async (req, res) => {
         const prodInfo = req.body;
         const prodInfoAdd = await productsService.addProduct(prodInfo);
         res.json({ message: "agregado correctamente", data: prodInfoAdd });
-        console.log(prodInfo)
+        console.log("producto", prodInfo)
         } catch (error) {
         res.send(error.message)
         }
@@ -63,7 +64,7 @@ router.put("/:prodId", async (req, res) => {
 
 router.delete("/:prodId", async (req, res) => {
     try {
-        const productId = parseInt(req.params.prodId);
+        const productId = parseInt(req.params.Id);
         const product = await productsService.deleteProducts(productId)
         res.json({ message: "id "+productId+" eliminado correctamente" , data:product});
     } catch (error) {

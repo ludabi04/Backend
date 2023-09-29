@@ -1,5 +1,5 @@
 import express from "express";
-import { ProductManagerFiles } from "./persistence/productManagerFiles.js";
+import { ProductManagerFiles } from "./dao/productManagerFiles.js";
 import { productRouter } from "./routes/productos.routes.js";
 import { cartsRouter } from "./routes/cart.routes.js";
 import { __dirname } from "./utils.js";
@@ -7,7 +7,9 @@ import path from "path";
 import { engine } from "express-handlebars"
 import { viewsRouter } from "./routes/views.routes.js";
 import { Server } from "socket.io";
-import { productsService } from "./persistence/index.js";
+import { productsService } from "./dao/index.js";
+import { connectDB } from "./config/dbConnection.js";
+
 
 const managerProductService = new ProductManagerFiles("./src/files/productos.json")
 console.log(managerProductService)
@@ -22,6 +24,10 @@ const httpServer = app.listen(port, () => console.log("server funcionando"))
 // servidor socket
 
 const socketServer = new Server(httpServer);
+
+//conexion a bBDD
+
+connectDB();
 
 
 app.use(express.urlencoded({extended:true})) // permite caracteres especiales

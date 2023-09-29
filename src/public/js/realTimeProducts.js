@@ -19,7 +19,7 @@ createProductForm.addEventListener("submit", (e) => {
         jsonData[key] = value;
     };
     jsonData.price = parseInt(jsonData.price);
-    console.log(jsonData);
+    console.log("jsonData", jsonData);
     //envio el objeto de info del producto al servidor
     socketClient.emit("addProduct", jsonData);
     createProductForm.reset();
@@ -38,14 +38,14 @@ socketClient.on("productosGuardados", (data) => {
         `<div class="card" style="width: 18rem; border: 2px solid">
             <img src=${elm.thumbnail} class="card-img-top" alt="...">
         <div class="card-body">
-        <p>ID: #${elm.id}</p>
+        <p>ID: #${elm._id}</p>
         <h5 class="card-title" id="title">${elm.title}</h5>
         <p class="card-text">Disponibles: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
-        <button onclick=eliminar(${elm.id})>Eliminar</button>
+        <button onclick=eliminar(${elm._id})>Eliminar</button>
         
-  </div>
+</div>
 </div>`  
     });
     productList.innerHTML = prodElem;
