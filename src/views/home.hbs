@@ -1,11 +1,11 @@
 <h1 class="title">Pagina de home</h1>
 
-<script src="/js/home.js"></script>
 
 <h3 style="text-align: center;">Listado de productos</h3>
 
+<div id="productList"></div>
 
- {{#each productos}} {{!--le indico de que array voy a renderizar --}}
+ {{#each products}} {{!--le indico de que array voy a renderizar --}}
  <div style="display: flex; flex-direction: column; align-items: center">
     <div class="card tarjeta" style="width: 18rem; border: 2px solid">
         <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
@@ -18,3 +18,8 @@
     </div>
 {{/each}}
 <br>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/js/home.js"></script>

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { productsService } from "../dao/index.js";
+import { chatService } from "../dao/index.js";
 
 
 
@@ -24,6 +25,16 @@ router.get("/realtimeproducts", async (req, res) => {
         
     }
 });
+router.get("/chat", async (req, res) => {
+    try {
+        const messages = await chatService.getMessages();
+        const data = { messages: messages }
+        res.render("chat", { ...data, style: "realtimeproducts.css" })
+    } catch (error) {
+        
+    }
+});
+
 
 
 

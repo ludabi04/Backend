@@ -1,0 +1,29 @@
+<h1>PAGINA DE CHAT</h1>
+
+
+<div class="chat">
+    <div class="sendMsg">
+        <h2>Enviar Mensaje</h2>
+        <form id="createMessage">
+            <div class="mb-3">
+                <label>User Mail</label>
+                <input type="mail" name="user" id="user" />
+            </div>
+            <div class="mb-3">
+                <label>Mensaje</label>
+                <input type="text" name="message" id="message" />
+            </div>
+            
+            <button type="sumbit" id="btnSendMsg">Enviar Mensaje</button>
+            <button type="sumbit" id="btnDelMsg">Borrar Historial</button>
+        </form>
+    </div>
+    <div id="msgHistory">
+
+    </div>
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/chat.js"></script>

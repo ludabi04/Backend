@@ -25,17 +25,7 @@ function eliminar(id) {
     socketClient.emit("eliminarElemento", id)
     console.log("elminando", id);
 }
-let input = document.getElementById("input")
-function enviar() {
-    let data = input.value;
-    console.log(data)
-    socketClient.emit("mensajeEnviado", data)
-}
 
-const mensajes = document.getElementById("bodyMsg")
-socketClient.on("reenvio", (data) => {
-    bodyMsg.innerHTML = data
-})
 
 // recibimos los productos del cliente 
 socketClient.on("productosGuardados", (data) => { 
@@ -77,10 +67,6 @@ socketClient.on("productosActualizados", (data) => {
 </div>` 
 });
     productList.innerHTML = prodElem;
-});
-socketClient.on("prueba", (data) => {
-    prodElem = data;
-    productList.innerHTML = prodElem
 });
 
 
