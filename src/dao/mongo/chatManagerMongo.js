@@ -30,7 +30,7 @@ async addMessages(messages) {
 
 async delMessages(id) {
         try {
-            const result = await this.model.deleteOne(id); 
+            const result = await this.model.findOneAndDelete(id); 
             return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)
