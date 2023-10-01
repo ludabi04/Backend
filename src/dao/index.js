@@ -11,4 +11,5 @@ console.log("dirname: ", path.join(__dirname, "/files"));//Users/lucasbianco/Des
 export const productsService = new productsManagerMongo();
 export const cartsService = new cartsManagerMongo();
 export const chatService = new messagesManagerMongo();
+export const cartService = new cartsManagerMongo();
 

@@ -7,7 +7,7 @@ import path from "path";
 import { engine } from "express-handlebars"
 import { viewsRouter } from "./routes/views.routes.js";
 import { Server } from "socket.io";
-import { chatService, productsService } from "./dao/index.js";
+import { cartsService, chatService, productsService } from "./dao/index.js";
 import { connectDB } from "./config/dbConnection.js";
 import { productsManagerMongo } from "./dao/mongo/productsManagerMongo.js";
 import { chatRouter } from "./routes/chat.routes.js";
@@ -94,8 +94,15 @@ socketServer.on("connection", async (socket) => {
         chatService.updateMsg(data);
         const chat = await chatService.getMessages();
         socket.emit("msgActualizados", chat);
-
-
+    });
+    socket.on("productoAAgregar", async (data) => {
+        console.log("producto a agregar", data)
+        const productoAAgregar = await productsService.getProductsById(data)
+        console.log("array", productoAAgregar);
+        const agregarProd = await cartsService.addCart({products:productoAAgregar});
+        const carritos = await cartsService.getCarts();
+        console.log(carritos)
+        // socket.emit("productoAlCarrito", carritos);
     })
 
     });

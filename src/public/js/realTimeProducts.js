@@ -1,3 +1,4 @@
+
 console.log("socket js para el front");
 
 const socketClient = io();
@@ -26,6 +27,12 @@ function eliminar(id) {
     console.log("elminando", id);
 }
 
+function addCart(id) {
+    socketClient.emit("productoAAgregar", id)
+
+    console.log("agregar al carrito", id)
+}
+
 
 // recibimos los productos del cliente 
 socketClient.on("productosGuardados", (data) => { 
@@ -41,6 +48,7 @@ socketClient.on("productosGuardados", (data) => {
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
         <button onclick=eliminar("${elm._id}")>Eliminar</button>
+        <button onclick=addCart("${elm._id}")>Eliminar</button>
         
 </div> 
 </div>` 
@@ -62,6 +70,7 @@ socketClient.on("productosActualizados", (data) => {
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
         <button onclick=eliminar("${elm._id}")>Eliminar</button>
+        <button onclick=addCart("${elm._id}")>Agregar</button>
         
 </div> 
 </div>` 

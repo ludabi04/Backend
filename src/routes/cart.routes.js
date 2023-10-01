@@ -7,14 +7,14 @@ const router = Router();
 //http://localhost:8080/api/carts
 router.get("/", async (req, res) => {
     const carritos = await cartsService.getCarts();
-    res.send(carritos)
+     res.json({message: "carrito agregado", data: carritos });
 });
 
 router.post("/", async (req, res) => {
     try {
         const cartInfo = req.body;
-        const carritoAgregado = await cartsService.addCart(cartInfo);
-        res.json({message: "carrito agregado", data: carritoAgregado });
+        const carritoAgregado = await cartsService.addCart({products: cartInfo});
+        res.json({ message: "agregado correctamente", data: carritoAgregado });
     } catch (error) {
         res.send(error.message)
 

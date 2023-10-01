@@ -1,11 +1,12 @@
-console.log("archivo js para la vista home")  
-
 const socketClient = io();
 
-socketClient.on("productosActualizados", (data) => { 
-    let prodElem = "";
+
+const carts = document.getElementById("carritos")
+
+socketClient.on("productoAlCarrito", (data) => {
+    let cartElem = "";
     data.forEach(elm => {
-        prodElem +=
+        cartElem +=
         `<div class="card" style="width: 18rem; border: 2px solid">
             <img src=${elm.thumbnail} class="card-img-top" alt="...">
         <div class="card-body">
@@ -15,10 +16,10 @@ socketClient.on("productosActualizados", (data) => {
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
         <button onclick=eliminar("${elm._id}")>Eliminar</button>
-        <button onclick=addCart("${elm._id}")>Agregar al carrito</button>
+        <button onclick=addCart("${elm._id}")>Eliminar</button>
         
 </div> 
 </div>` 
-});
-    productList.innerHTML = prodElem;
-});
+    });
+    carts.innerHTML = cartElem;
+})
