@@ -28,4 +28,16 @@ async addMessages(messages) {
         }
     };
 
+async delMessages(id) {
+        try {
+            const result = await this.model.deleteOne(id); 
+            return result;
+        } catch (error) {
+            console.log("error al obtener prodcutos", error.message)
+            throw new Error("error al crear el producto")
+
+        }
+    };
+
+
 };

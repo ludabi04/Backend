@@ -25,4 +25,14 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.delete("/", async (req, res) => {
+    try {
+        const delMsg = await chatService.delMessages(_id);
+        res.json({ status: "succes", data: delMsg })
+    } catch (error) {
+        console.log("error")
+    }
+})
+
+
 export { router as chatRouter };

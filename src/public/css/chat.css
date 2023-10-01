@@ -1,0 +1,11 @@
+.globo{
+   border-radius: 25px;
+      background: gray;
+      color: white;
+   padding: 10px;
+   margin-bottom: 2px;
+   position: relative;
+   width: 50%;
+   font-family: sans-serif;
+   z-index: 1;
+   }
