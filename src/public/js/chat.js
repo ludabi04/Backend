@@ -17,6 +17,7 @@ createchatForm.addEventListener("submit", (e) => {
     createchatForm.reset();
 });
 
+
 const mensajes = document.getElementById("msgHistory")
 socketClient.on("reenvio", (data) => {
     console.log("data recibida", data)
@@ -27,7 +28,7 @@ socketClient.on("reenvio", (data) => {
             <p style="background-color: grey">Usuario: ${elm.user}</p>
             <p style="background-color: grey">Mensaje: ${elm.message}</p>
             <button onclick=eliminarMsg("${elm._id}")><img src="https://cdn-icons-png.flaticon.com/512/535/535246.png" style="width: 1rem" )/></button>
-            <button onclick=eliminarMsg("${elm._id}")><img src="https://cdn3.iconfinder.com/data/icons/feather-5/24/edit-512.png" style="width: 1rem" /></button>
+            <button onclick=updateMsg("${elm._id}") type="button"><img src="https://cdn3.iconfinder.com/data/icons/feather-5/24/edit-512.png" style="width: 1rem" /></button>
             </div>`
         
     });
@@ -39,6 +40,15 @@ function eliminarMsg(id){
     socketClient.emit("eliminarMsg", id)
 };
 
+
+function updateMsg(id, newMessage){
+    console.log("id a updetear", id, newMessage);
+    
+};
+    
+
+
+
 socketClient.on("msgActualizados", (data) => {
     console.log("data recibida", data)
     let chatElem = "";
@@ -48,9 +58,10 @@ socketClient.on("msgActualizados", (data) => {
             <p style="background-color: grey">Usuario: ${elm.user}</p>
             <p style="background-color: grey">Mensaje: ${elm.message}</p>
             <button onclick=eliminarMsg("${elm._id}")><img src="https://cdn-icons-png.flaticon.com/512/535/535246.png" style="width: 1rem" )/></button>
-            <button onclick=eliminarMsg("${elm._id}")><img src="https://cdn3.iconfinder.com/data/icons/feather-5/24/edit-512.png" style="width: 1rem" /></button>
-            </div>`
+            <button onclick=updateMsg("${elm._id}") type="button" ><img src="https://cdn3.iconfinder.com/data/icons/feather-5/24/edit-512.png" style="width: 1rem" /></button>;
+            `
         
     });
     msgHistory.innerHTML = chatElem
 });
+

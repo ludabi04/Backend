@@ -88,6 +88,14 @@ socketServer.on("connection", async (socket) => {
         await chatService.delMessages(data);
         const chat = await chatService.getMessages();
         socket.emit("msgActualizados", chat);
+     })
+    socket.on("update", async (data) => {
+        console.log("msg para update", data)
+        chatService.updateMsg(data);
+        const chat = await chatService.getMessages();
+        socket.emit("msgActualizados", chat);
+
+
     })
 
     });

@@ -40,4 +40,17 @@ async delMessages(id) {
     };
 
 
+async updateMsg(id, newMessage) {
+        try {
+            const result = await this.model.findByIdAndUpdate(id, newMessage); 
+            return result;
+        } catch (error) {
+            console.log("error al obtener prodcutos", error.message)
+            throw new Error("error al crear el producto")
+
+        }
+    };
+
+
 };
+
