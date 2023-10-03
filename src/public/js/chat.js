@@ -1,4 +1,5 @@
 const socketClient = io();
+console.log("Js para mensajes")
 
 
 const createchatForm = document.getElementById("createMessage");

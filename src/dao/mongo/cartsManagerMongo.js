@@ -5,9 +5,9 @@ export class cartsManagerMongo {
         this.model = cartsModel;
     }
 
-    async addCart(...cart) {
+    async addCart(cart) {
         try {
-            const result = await this.model.create({products: {cart}} );
+            const result = await this.model.create({products: cart.products} );
             return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)

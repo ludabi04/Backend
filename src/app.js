@@ -12,12 +12,15 @@ import { connectDB } from "./config/dbConnection.js";
 import { productsManagerMongo } from "./dao/mongo/productsManagerMongo.js";
 import { chatRouter } from "./routes/chat.routes.js";
 import { messagesManagerMongo } from "./dao/mongo/chatManagerMongo.js";
+import { cartsManagerMongo } from "./dao/mongo/cartsManagerMongo.js";
 
 
 const managerProductService = new productsManagerMongo();
 const managerChatService = new messagesManagerMongo();
+const managerCartService = new cartsManagerMongo();
 console.log(managerProductService)
 console.log(managerChatService)
+console.log(managerCartService) 
 
 
 //servidor express
@@ -63,6 +66,8 @@ socketServer.on("connection", async (socket) => {
         // se conecta un usuario y le manda los productos
         const products = await productsService.getProducts()
         socket.emit("reenvio", mensajes);
+        const carritos = await cartsService.getCarts();
+        socket.emit("carritosAlMomenot", carritos)
     //enviando los productos al cliente
     socket.emit(("productosGuardados", "productosActualizados"), products);
     // recibir los datos del producto desde el 
@@ -101,10 +106,10 @@ socketServer.on("connection", async (socket) => {
         console.log("array", productoAAgregar);
         const agregarProd = await cartsService.addCart({products:productoAAgregar});
         const carritos = await cartsService.getCarts();
-        console.log(carritos)
-        // socket.emit("productoAlCarrito", carritos);
+        console.log("carrito", {carritos})
+        socket.emit("productoAlCarrito", carritos);
     })
 
-    });
+    }); 
 
 connectDB(); 

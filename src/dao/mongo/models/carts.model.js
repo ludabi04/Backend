@@ -6,8 +6,15 @@ const cartsCollecttion = "carts";
 const cartsSchema = new mongoose.Schema({
     products: {
         type: [
-            {   productId: String,
-                
+            {
+                productId: String,
+                title: String, 
+                description: String,
+                price: Number,
+                status: Boolean,
+                stock: Number,
+                category: String,
+                thumbnail: String     
             }
         ],
         default:[]
