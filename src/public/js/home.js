@@ -14,11 +14,11 @@ socketClient.on("productosActualizados", (data) => {
         <p class="card-text">Disponibles: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
-        <button onclick=eliminar("${elm._id}")>Eliminar</button>
+        <button onclick=eliminar("${elm._id}")>Eliminar</button> 
         <button onclick=addCart("${elm._id}")>Agregar al carrito</button>
         
 </div> 
-</div>` 
+</div>`
 });
     productList.innerHTML = prodElem;
 });

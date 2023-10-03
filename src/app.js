@@ -63,11 +63,12 @@ socketServer.on("connection", async (socket) => {
     //se conecta un usuario y le manda los mensajes
         const mensajes = await chatService.getMessages();
         console.log("este es el mensaje", mensajes)
+        socket.emit("reenvio", mensajes);
         // se conecta un usuario y le manda los productos
         const products = await productsService.getProducts()
-        socket.emit("reenvio", mensajes);
+        console.log("productos", products)
         const carritos = await cartsService.getCarts();
-        socket.emit("carritosAlMomenot", carritos)
+        socket.emit("carritostotales", carritos)
     //enviando los productos al cliente
     socket.emit(("productosGuardados", "productosActualizados"), products);
     // recibir los datos del producto desde el 
@@ -106,10 +107,18 @@ socketServer.on("connection", async (socket) => {
         console.log("array", productoAAgregar);
         const agregarProd = await cartsService.addCart({products:productoAAgregar});
         const carritos = await cartsService.getCarts();
-        console.log("carrito", {carritos})
-        socket.emit("productoAlCarrito", carritos);
+        let lastCart = await cartsService.getCartsById(carritos[carritos.length-1]._id)
+        const lastCarrito = lastCart.products;
+        console.log("carrito final", lastCarrito)
+        socket.emit("productoAlCarrito", lastCarrito);
+    })  
+    socket.on("idPorCarrito", async (data, cartId)=> {
+        const carritos = await cartsService.getCartsById(cartId)
+        const productosCarts = await productsService.getProductsById(data);
+        console.log("id en server", data)
+        // socket.emit("carritosAmostrar", productosCarts)
     })
 
     }); 
-
+ 
 connectDB(); 

@@ -1,8 +1,27 @@
 <h1>Carritos</h1>
 
+
+<a class="btn " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+        <img src="https://e7.pngegg.com/pngimages/833/426/png-clipart-shopping-cart-shopping-cart.png" style="width: 1.7rem;" alt="carrito" />
+              
+        </a>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Su carrito de compras</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="carritos"></div>
+            <div class="dropdown mt-3">
+            
+            <button>Finalizar Compra</button>
+            </div>
+        </div>
+        </div>
+    </div>
 <div id="carritos">
 
 </div>
-
+ 
 <script src="/socket.io/socket.io.js"></script>
 <script src="./js/carts.js"></script>

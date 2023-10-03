@@ -26,9 +26,10 @@ export class productsManagerMongo {
 
         }
      };
-    async getProductsById(productId) {
+    async getProductsById(id) {
         try {
-            const result = await this.model.findOne({_id: productId});
+            const result = await this.model.findById(id);
+            console.log("result", result)
             return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)
