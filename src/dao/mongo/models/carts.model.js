@@ -8,16 +8,10 @@ const cartsSchema = new mongoose.Schema({
         type: [
             {
                 productId: String,
-                title: String, 
-                description: String,
-                price: Number,
-                status: Boolean,
-                stock: Number,
-                category: String,
-                thumbnail: String     
+               
             }
         ],
-        default:[]
+        default:[] 
     }
 })
 

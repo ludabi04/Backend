@@ -82,7 +82,7 @@ const carts = document.getElementById("carritos")
 
 socketClient.on("productoAlCarrito", (elem) => {
     let prodElem = "";
-    elem.forEach(elm => {
+    elem.forEach((elm) => {
         prodElem +=
                
                 `<div class="card" style="width: 18rem; border: 2px solid">

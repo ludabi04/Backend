@@ -5,9 +5,9 @@ export class cartsManagerMongo {
         this.model = cartsModel;
     }
 
-    async addCart(cart) {
+    async addCart(products) {
         try {
-            const result = await this.model.create({products: cart.products} );
+            const result = await this.model.create({products: products} );
             return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)
@@ -28,10 +28,10 @@ export class cartsManagerMongo {
     async getCartsById(cId) {
         try {
             const result = await this.model.findOne({_id: cId});
-            return result;
+            return result; 
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)
-            throw new Error("error al obtener el producto");
+            throw new Error("error al obtener el producto");  
 
         }
      }

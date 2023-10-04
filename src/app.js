@@ -101,6 +101,9 @@ socketServer.on("connection", async (socket) => {
         const chat = await chatService.getMessages();
         socket.emit("msgActualizados", chat);
     });
+
+    //Agregando productos al carrito
+
     socket.on("productoAAgregar", async (data) => {
         console.log("producto a agregar", data)
         const productoAAgregar = await productsService.getProductsById(data)
@@ -112,12 +115,7 @@ socketServer.on("connection", async (socket) => {
         console.log("carrito final", lastCarrito)
         socket.emit("productoAlCarrito", lastCarrito);
     })  
-    socket.on("idPorCarrito", async (data, cartId)=> {
-        const carritos = await cartsService.getCartsById(cartId)
-        const productosCarts = await productsService.getProductsById(data);
-        console.log("id en server", data)
-        // socket.emit("carritosAmostrar", productosCarts)
-    })
+    
 
     }); 
  
