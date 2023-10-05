@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { productsService } from "../persistence/index.js";
+import { productsService } from "../dao/index.js";
+import { chatService } from "../dao/index.js";
+import { cartsService } from "../dao/index.js";
 
 
 
@@ -24,11 +26,25 @@ router.get("/realtimeproducts", async (req, res) => {
         
     }
 });
+router.get("/chat", async (req, res) => {
+    try {
+        const messages = await chatService.getMessages();
+        const data = { messages: messages }
+        res.render("chat", { ...data, style: "realtimeproducts.css" })
+    } catch (error) {
+        
+    }
+});
 
-
-
-
-
+router.get("/carts", async (req, res) => {
+    try {
+        const carts = await cartsService.getCarts();
+        const data = { carts: carts }
+        res.render("carts", { ...data, style: "realtimeproducts.css" })
+    } catch (error) {
+        
+    }
+});
 
 
 

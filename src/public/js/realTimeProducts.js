@@ -1,13 +1,10 @@
+
 console.log("socket js para el front");
 
 const socketClient = io();
 
 const productList = document.getElementById("productList");
 const createProductForm = document.getElementById("createProductForm");
-
-
-
-
 
 // enviamos la info del form al socket del servidor
 createProductForm.addEventListener("submit", (e) => {
@@ -19,39 +16,86 @@ createProductForm.addEventListener("submit", (e) => {
         jsonData[key] = value;
     };
     jsonData.price = parseInt(jsonData.price);
-    console.log(jsonData);
-    //envio el objeto de info del producto al servidor
     socketClient.emit("addProduct", jsonData);
+    console.log("jsonData", jsonData);
+    //envio el objeto de info del producto al servidor
     createProductForm.reset();
 });
 
 function eliminar(id) {
-    console.log("elminando", id);
     socketClient.emit("eliminarElemento", id)
+    console.log("elminando", id);
 }
 
-// recibimos los productos del cliente
-socketClient.on("productosGuardados", (data) => {
+
+// recibimos los productos del cliente 
+socketClient.on("productosGuardados", (data) => { 
     let prodElem = "";
     data.forEach(elm => {
         prodElem +=
-        `<div class="card" style="width: 18rem; border: 2px solid">
-            <img src=${elm.thumbnail} class="card-img-top" alt="...">
+        `<div class="card" >
+            <div class="img"><img src=${elm.thumbnail} class="card-img-top imagen" alt="..."/></div>
         <div class="card-body">
-        <p>ID: #${elm.id}</p>
+        <p>ID: #${elm._id}</p>
         <h5 class="card-title" id="title">${elm.title}</h5>
         <p class="card-text">Disponibles: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
-        <button onclick=eliminar(${elm.id})>Eliminar</button>
+        <button onclick=eliminar("${elm._id}")>Eliminar</button>
+        <button onclick=addCart("${elm._id}")>Eliminar</button> 
         
-  </div>
-</div>`  
-    });
+</div> 
+</div>` 
+});
     productList.innerHTML = prodElem;
 });
 
-socketClient.on("productosActulizados", (data) => {
-    prodElem = data;
-})
 
+
+socketClient.on("productosActualizados", (data) => {
+    let prodElem = "";
+    data.forEach(elm => {
+        prodElem +=
+        `<div class="card" >
+            <div class="img"><img src=${elm.thumbnail} class="card-img-top imagen" alt="..."/></div>
+        <div class="card-body">
+        <p>ID: #${elm._id}</p>
+        <h5 class="card-title" id="title">${elm.title}</h5>
+        <p class="card-text">Disponibles: ${elm.stock}</p>
+        <p class="card-text">Precio: $ ${elm.price}</p>
+        <p class="card-text">Categoria: ${elm.category}</p>
+        <button onclick=eliminar("${elm._id}")>Eliminar</button>
+        <button onclick=addCart("${elm._id}")>Agregar</button>
+        
+</div> 
+</div>` 
+      
+});
+    productList.innerHTML = prodElem;
+});
+
+let totalCarrito = document.getElementById("totalCarritos");
+
+
+function addCart(id) {
+    socketClient.emit("productoAAgregar", id)
+    console.log("agregar al carrito", id);
+    
+
+}
+
+const carts = document.getElementById("carritos")
+
+socketClient.on("productoAlCarrito", (data) => {
+    
+        carts.innerHTML =
+            `
+            <div class="card" ; border: 2px solid">
+            <div class="img"><img src=${data.thumbnail} class="card-img-top" alt="${data.title}"></div>
+        <div class="card-body">
+        <p>ID: #${data._id}</p>
+        <h5 class="card-title" id="title">${[data.products].title}</h5>
+        <p class="card-text">Disponibles: ${data.stock}</p>
+        <p class="card-text">Precio: $ ${data.price}</p>
+        <p class="card-text">Categoria: ${data.category}</p>
+        `}); 
