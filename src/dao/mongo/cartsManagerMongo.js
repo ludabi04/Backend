@@ -1,3 +1,4 @@
+import { cartsService } from "../index.js";
 import { cartsModel } from "./models/carts.model.js";
 
 export class cartsManagerMongo { 
@@ -42,15 +43,25 @@ export class cartsManagerMongo {
             const cart = await this.model.findById(cartId);
             cart.products.push(prodId);
             const carrUpdated = await this.model.findByIdAndUpdate(cartId, cart, {new:true})
-            
-
             return carrUpdated; 
         } catch (error) {
             console.log("error prodInCarts", error.message)
             throw new Error("error al obtener el producto");  
 
         }
-     }
+    }
+    
+    async prodBycarts(cartId) {
+        try {
+            console.log("cartID", cartId)
+            const prodCart = await this.model.findById(cartId).populate("products");
+            return prodCart;
+        } catch (error) {
+            throw new Error("error en el carrito")
+        }
+    }
+
+
     async updateCartById(cartId, prodId, productExists) {
         try {
             const result = await this.model.updateOne({ _id: cartId, prodId, productExists });

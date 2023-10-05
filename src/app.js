@@ -65,7 +65,6 @@ socketServer.on("connection", async (socket) => {
         const products = await productsService.getProducts()
         const carritos = await cartsService.getCarts();
     socket.emit("carritostotales", carritos)
-    console.log(carritos)
     //enviando los productos al cliente
     socket.emit(("productosGuardados", "productosActualizados"), products);
     // recibir los datos del producto desde el 
@@ -105,7 +104,7 @@ socketServer.on("connection", async (socket) => {
         console.log("idProd", data)
         const productaAgregar = await productsService.getProductsById(data);
         // console.log("prod a agregaR", productaAgregar)
-        const newCarro = await cartsService.addCart() 
+        // const newCarro = await cartsService.addCart() 
         
         const carritos = await cartsService.getCarts();
         
@@ -113,14 +112,20 @@ socketServer.on("connection", async (socket) => {
         console.log("last Cart ID", lastCart._id)
         const lastCartId = lastCart._id
         const carritoFinal = await cartsService.prodInCarts(lastCartId,data )
-        socket.emit("productoAlCarrito", carritoFinal);
     }); 
 
     socket.on("eliminarCart", async (data) => {
         await cartsService.deleteCart(data);
         const carritos = await cartsService.getCarts();
         socket.emit("carritostotales", carritos)
+    });
+
+    socket.on("masDetalles", async (id) => {
+        const cartDetails = await cartsService.prodBycarts(id);
+        console.log(cartDetails)
+        socket.emit("cartDetails", cartDetails)
     })
+
     
  
     }); 
