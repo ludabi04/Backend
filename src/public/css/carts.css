@@ -4,3 +4,9 @@
     z-index: 1;
 
 }
+    .estructuraCarts {
+
+        display: flex;
+        flex-direction: row;
+    }
+

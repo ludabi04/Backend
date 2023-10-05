@@ -17,11 +17,29 @@ socketClient.on("cartDetails", (data) => {
     let pageDetails = "";
     for (let index = 0; index < products.length; index++) {
         const element = products[index];
+        console.log(element)
+        pageDetails +=
+            
+            ` <div class="card">
+        <div class="card-body">
+        <h3>Producto ${index + 1}</h3>
         
-        console.log(element)      
-    
-    } 
+        <h5 class="card-title" id="title">${element.title}</h5>
+        <p class="card-text">${element.description}</p>
+        <p class="card-text">Precio: $ ${element.price}</p>
+        <p class="card-text">Stock:${element.stock}</p>
+        
+       </div>
+      ` 
+            
+            
+            
+            
+            
+    } detallesCarrito.innerHTML = pageDetails
     }
+    
+    
 )
 
 socketClient.on("carritostotales", (data) => {
@@ -35,7 +53,7 @@ socketClient.on("carritostotales", (data) => {
         <div class="card-body">
         <p>ID: #${element._id}</p>
         <button onclick=eliminarCart("${element._id}")>Eliminar</button>
-        <button onclick=consultarMas("${element._id}")>Detalles</button>
+        <button onclick=consultarMas("${element._id}") type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Detalles</button>
         
         </div> 
         </div>`
