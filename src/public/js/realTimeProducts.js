@@ -82,7 +82,6 @@ function addCart(id) {
     console.log("agregar al carrito", id);
     
 
-    totalCarrito.innerHTML = `<div>${total}</div>`
 }
 
 const carts = document.getElementById("carritos")

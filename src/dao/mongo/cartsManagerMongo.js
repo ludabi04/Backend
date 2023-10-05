@@ -5,12 +5,12 @@ export class cartsManagerMongo {
         this.model = cartsModel;
     }
 
-    async addCart(products) {
+    async addCart(data) {
         try {
-            const result = await this.model.create({products: products} );
+            const result = await this.model.create(data);
             return result;
-        } catch (error) {
-            console.log("error al obtener prodcutos", error.message)
+        } catch (error) { 
+            console.log("error al agregar el carro", error.message)
             throw new Error("error al crear el carroooo")
 
         }
@@ -20,17 +20,33 @@ export class cartsManagerMongo {
             const result = await this.model.find();
             return result;
         } catch (error) {
-            console.log("error al obtener prodcutos", error.message)
-            throw new Error("error al obtener el producto");
+            console.log("error al obtener el carro", error.message)
+            throw new Error("error al obtener el carro");
 
-        }
+         }
      };
     async getCartsById(cId) { 
         try {
             const result = await this.model.findOne({_id: cId});
             return result; 
         } catch (error) {
-            console.log("error al obtener prodcutos", error.message)
+            console.log("error getCartsById", error.message)
+            throw new Error("error al obtener el producto");  
+
+        }
+    }
+    
+ 
+    async prodInCarts(cartId, prodId) { 
+        try {
+            const cart = await this.model.findById(cartId);
+            cart.products.push(prodId);
+            const carrUpdated = await this.model.findByIdAndUpdate(cartId, cart, {new:true})
+            
+
+            return carrUpdated; 
+        } catch (error) {
+            console.log("error prodInCarts", error.message)
             throw new Error("error al obtener el producto");  
 
         }

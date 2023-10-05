@@ -36,8 +36,6 @@ const socketServer = new Server(httpServer);
 //conexion a bBDD
 
 
-
-
 app.use(express.urlencoded({extended:true})) // permite caracteres especiales
 app.use(express.json());
 
@@ -61,7 +59,7 @@ app.use(viewsRouter);
 
 socketServer.on("connection", async (socket) => {
     //se conecta un usuario y le manda los mensajes
-        const mensajes = await chatService.getMessages();
+    const mensajes = await chatService.getMessages();
         socket.emit("reenvio", mensajes);
         // se conecta un usuario y le manda los productos
         const products = await productsService.getProducts()
@@ -101,21 +99,22 @@ socketServer.on("connection", async (socket) => {
         socket.emit("msgActualizados", chat);
     });
 
-    //Agregando productos al carrito
+    //Agregando productos al carrito 
 
     socket.on("productoAAgregar", async (data) => {
-        console.log("producto a agregar", data)
-        const productoAAgregar = await productsService.getProductsById(data)
-        console.log("array", productoAAgregar.id);
-        const agregarProd = await cartsService.addCart(productoAAgregar);
-        console.log(agregarProd)
+        console.log("idProd", data)
+        const productaAgregar = await productsService.getProductsById(data);
+        // console.log("prod a agregaR", productaAgregar)
+        const newCarro = await cartsService.addCart() 
+        
         const carritos = await cartsService.getCarts();
-        let lastCart = await cartsService.getCartsById(carritos[carritos.length - 1]._id)
-        const lastCarrito = lastCart.products;
-
-        console.log("carrito final", productoAAgregar)
-        socket.emit("productoAlCarrito", productoAAgregar);
-    });
+        
+        const lastCart = await cartsService.getCartsById(carritos[carritos.length - 1]._id)
+        console.log("last Cart ID", lastCart._id)
+        const lastCartId = lastCart._id
+        const carritoFinal = await cartsService.prodInCarts(lastCartId,data )
+        socket.emit("productoAlCarrito", carritoFinal);
+    }); 
 
     socket.on("eliminarCart", async (data) => {
         await cartsService.deleteCart(data);
@@ -123,7 +122,7 @@ socketServer.on("connection", async (socket) => {
         socket.emit("carritostotales", carritos)
     })
     
-
+ 
     }); 
  
 connectDB(); 
