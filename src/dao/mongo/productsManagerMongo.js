@@ -29,7 +29,6 @@ export class productsManagerMongo {
     async getProductsById(id) {
         try {
             const result = await this.model.findById(id);
-            console.log("result", result)
             return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)

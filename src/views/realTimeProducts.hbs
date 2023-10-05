@@ -1,61 +1,103 @@
+<div class="btnCart">
+    
+    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="imgCart">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill"
+            viewBox="0 0 16 16">
+            <path
+                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        
+        </svg>
+    </button>
+        </div>
+        
+    <div id="totalCarritos"> </div>
+
+
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="carritos">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 <h1 class="title">Listado de productos y agregar</h1>
 
-
 <div class="addAndSee">
 
     <div class="add">
-    <h3>Agregar producto</h3>
+        <h3>Agregar producto</h3>
         <form id="createProductForm">
-        <div class="mb-3">
-            <label>Titulo</label>
-            <input type="text"  name="title" id="title" />
-        </div>
-        <div class="mb-3">
-            <label >Descripción</label>
-            <input type="text" name="description" id="description" />
-        </div>
-        <div class="mb-3">
-            <label>Precio</label>
-            <input type="number" name="price" id="price" />
-        </div>
-        <div class="mb-3">
-            <label>Status</label>
-            <input type="text" name="status" id="status" />
-        </div>
-        <div class="mb-3">
-            <label>Stock</label>
-            <input type="number" name="stock" id="stock" />
-        </div>
-        <div class="mb-3">
-            <label>Categoria</label>
-            <input type="text" name="category" id="category" />
-        </div>
-        <div class="mb-3">
-            <label>Code</label>
-            <input type="number" name="stock" id="stock" />
-        </div>
-        <div class="mb-3">
-            <label>Url de imagen</label>
-            <input type="text" name="thumbnail" id="thumbnail" />
-        </div>
+        <div class="formulario">
+            <div class="mb-3">
+                <label>Titulo</label>
+                <input type="text"  name="title" id="title" />
+            </div>
+            <div class="mb-3">
+                <label >Descripción</label>
+                <input type="text" name="description" id="description" />
+            </div>
+            <div class="mb-3">
+                <label>Precio</label>
+                <input type="number" name="price" id="price" />
+            </div>
+            <div class="mb-3">
+                <label>Status</label>
+                <input type="text" name="status" id="status" />
+            </div>
+            </div>
+                <div class="formulario">
+                    <div class="mb-3">
+                        <label>Stock</label>
+                        <input type="number" name="stock" id="stock" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Categoria</label>
+                        <input type="text" name="category" id="category" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Code</label>
+                        <input type="number" name="stock" id="stock" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Url de imagen</label>
+                        <input type="text" name="thumbnail" id="thumbnail" />
+                    </div>
+                </div>
+            </div>
+        <div class="btnAgregar">
         <button type="sumbit" id="btnEnviar">Agregar prod</button>
-    </form>
+        </form>
     </div>
-    <hr>
+
 
     <div class="see">
-        <h3>Listado de productos actualizado</h3> 
+        <div><h3>Listado de productos actualizado</h3> 
         {{!-- le indico de que array voy a renderizar --}}
-
-        <div id="productList">
-            
-
         </div>
-        <div id="carritos"></div>
-    </div>
+        
+        <div id="productList" class="productList">
+            
+        </div>
 
+      
+    </div>
 </div>
 {{!-- importar socket.io desde el front --}}
 <script src="/socket.io/socket.io.js"></script> 

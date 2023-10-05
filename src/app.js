@@ -62,13 +62,12 @@ app.use(viewsRouter);
 socketServer.on("connection", async (socket) => {
     //se conecta un usuario y le manda los mensajes
         const mensajes = await chatService.getMessages();
-        console.log("este es el mensaje", mensajes)
         socket.emit("reenvio", mensajes);
         // se conecta un usuario y le manda los productos
         const products = await productsService.getProducts()
-        console.log("productos", products)
         const carritos = await cartsService.getCarts();
-        socket.emit("carritostotales", carritos)
+    socket.emit("carritostotales", carritos)
+    console.log(carritos)
     //enviando los productos al cliente
     socket.emit(("productosGuardados", "productosActualizados"), products);
     // recibir los datos del producto desde el 
@@ -107,14 +106,22 @@ socketServer.on("connection", async (socket) => {
     socket.on("productoAAgregar", async (data) => {
         console.log("producto a agregar", data)
         const productoAAgregar = await productsService.getProductsById(data)
-        console.log("array", productoAAgregar);
-        const agregarProd = await cartsService.addCart({products:productoAAgregar});
+        console.log("array", productoAAgregar.id);
+        const agregarProd = await cartsService.addCart(productoAAgregar);
+        console.log(agregarProd)
         const carritos = await cartsService.getCarts();
-        let lastCart = await cartsService.getCartsById(carritos[carritos.length-1]._id)
+        let lastCart = await cartsService.getCartsById(carritos[carritos.length - 1]._id)
         const lastCarrito = lastCart.products;
-        console.log("carrito final", lastCarrito)
-        socket.emit("productoAlCarrito", lastCarrito);
-    })  
+
+        console.log("carrito final", productoAAgregar)
+        socket.emit("productoAlCarrito", productoAAgregar);
+    });
+
+    socket.on("eliminarCart", async (data) => {
+        await cartsService.deleteCart(data);
+        const carritos = await cartsService.getCarts();
+        socket.emit("carritostotales", carritos)
+    })
     
 
     }); 
