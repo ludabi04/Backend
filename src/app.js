@@ -104,21 +104,26 @@ socketServer.on("connection", async (socket) => {
         console.log("idProd", data)
         const productaAgregar = await productsService.getProductsById(data);
         // console.log("prod a agregaR", productaAgregar)
-        // const newCarro = await cartsService.addCart() 
+        const carritos = await cartsService.getCarts()
+        const carritoFinal = carritos.length - 1;
+        if(carritos < 1){
+            const newCarro = await cartsService.addCart() 
+            const idNewCart = newCarro._id
+            console.log("nuevo id", idNewCart)
+            const prodIncart = await cartsService.prodInCarts(idNewCart, data)
+        } else {
+            const carritoFinalId = carritos[carritoFinal].id
+            console.log("carrito final", carritoFinalId)
+            const prodInCart = await cartsService.prodInCarts(carritoFinalId, data)
+        }
         
-        const carritos = await cartsService.getCarts();
-        
-        const lastCart = await cartsService.getCartsById(carritos[carritos.length - 1]._id)
-        console.log("last Cart ID", lastCart._id)
-        const lastCartId = lastCart._id
-        const carritoFinal = await cartsService.prodInCarts(lastCartId,data )
     }); 
 
     socket.on("eliminarCart", async (data) => {
         await cartsService.deleteCart(data);
         const carritos = await cartsService.getCarts();
         socket.emit("carritostotales", carritos)
-    });
+    }); 
 
     socket.on("masDetalles", async (id) => {
         const cartDetails = await cartsService.prodBycarts(id);
