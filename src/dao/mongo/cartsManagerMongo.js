@@ -53,7 +53,7 @@ export class cartsManagerMongo {
                 productId: prodId,
                 quantity: 1
             }
-                const result = cartsExist.products.push(newProdCart)
+                const result = cartsExist.products.push(prodId)
                 const Finalresult = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true })
                 console.log(Finalresult)
                 console.log("result", Finalresult)
@@ -70,7 +70,7 @@ export class cartsManagerMongo {
     async prodBycarts(cartId) {
         try {
             console.log("cartID", cartId)
-            const prodCart = await this.model.findById(cartId).populate("products");
+            const prodCart = await cartsService.getCartsById(cartId).populate("products");
             return prodCart;
         } catch (error) {
             throw new Error("error en el carrito")
