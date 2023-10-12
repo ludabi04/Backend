@@ -53,8 +53,11 @@ export class cartsManagerMongo {
                 productId: prodId,
                 quantity: 1
             }
-            const result = cartsExist.products.push(newProdCart)
-                console.log("result", result)
+                const result = cartsExist.products.push(newProdCart)
+                const Finalresult = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true })
+                console.log(Finalresult)
+                console.log("result", Finalresult)
+            
                 }
         }
  catch (error) {
