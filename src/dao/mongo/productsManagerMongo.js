@@ -18,7 +18,7 @@ export class productsManagerMongo {
     };
     async getProducts() { // aca se puede poner el filtro ()
          try {
-            const result = await this.model.find();
+            const result = await this.model.find().lean();
             return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)
@@ -53,6 +53,22 @@ export class productsManagerMongo {
         } catch (error) {
             console.log("error al eliminar productos")
             throw new Error("error al eliminar el producto");
-        }}
+        }
+    }
+    
+    async getProductsPaginate(filtro) {
+        try {
+            const result = await productsModel.aggregate([
+            //1 etapa(stage) filtrar
+                {
+                    $match: { title: `${filtro}` } 
+                }
+            ]);
+            return result
+            console.log("resultado", result)
+        } catch (error) {
+            console.log("error de paginado", error.message)   
+        } 
+    }
 
     }

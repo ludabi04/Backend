@@ -3,6 +3,15 @@
 
 <h3 style="text-align: center;">Listado de productos</h3>
 
+<p>Filtrar por:</p>
+
+
+<button onclick=filtrar("Remera")>Remera</button>
+<button onclick=filtrar("Pantalón")>Jean</button>
+
+
+
+<div id="filtrado"></div>
 <div id="productList"></div>
 
  {{#each products}} {{!--le indico de que array voy a renderizar --}}

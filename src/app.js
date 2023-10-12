@@ -13,6 +13,7 @@ import { productsManagerMongo } from "./dao/mongo/productsManagerMongo.js";
 import { chatRouter } from "./routes/chat.routes.js";
 import { messagesManagerMongo } from "./dao/mongo/chatManagerMongo.js";
 import { cartsManagerMongo } from "./dao/mongo/cartsManagerMongo.js";
+import { productsModel } from "./dao/mongo/models/products.model.js";
 
 
 const managerProductService = new productsManagerMongo();
@@ -34,6 +35,7 @@ const httpServer = app.listen(port, () => console.log("server funcionando"))
 const socketServer = new Server(httpServer);
 
 //conexion a bBDD
+
 
 
 app.use(express.urlencoded({extended:true})) // permite caracteres especiales
@@ -131,10 +133,21 @@ socketServer.on("connection", async (socket) => {
         const prodCarts = cartDetails.products
         console.log("cart details", prodCarts[0].quantity)
         socket.emit("cartDetails", prodCarts)
-    })
-
+    });
+    socket.on("filtro", async (data)=>{
+        console.log("data", data)
+        const filtrado = await productsService.getProductsPaginate(data);
+        socketServer.emit("dataFilter", filtrado)
+        console.log("filtrado", filtrado)
+    }) 
     
+
+
+}); 
+
+
+
+
  
-    }); 
- 
+
 connectDB(); 
