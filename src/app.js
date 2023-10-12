@@ -126,9 +126,11 @@ socketServer.on("connection", async (socket) => {
     }); 
 
     socket.on("masDetalles", async (id) => {
-        const cartDetails = await cartsService.prodBycarts(id);
-        console.log(cartDetails)
-        socket.emit("cartDetails", cartDetails)
+        console.log("id carrito", id)
+        const cartDetails = await cartsService.getCartsById(id);
+        const prodCarts = cartDetails.products
+        console.log("cart details", prodCarts[0].quantity)
+        socket.emit("cartDetails", prodCarts)
     })
 
     

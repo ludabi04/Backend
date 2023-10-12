@@ -13,7 +13,7 @@ function consultarMas(id) {
 const detallesCarrito = document.getElementById("cartDetails");
 
 socketClient.on("cartDetails", (data) => {
-    const products = data.products;
+    const products = data;
     let pageDetails = "";
     for (let index = 0; index < products.length; index++) {
         const element = products[index];
@@ -24,8 +24,8 @@ socketClient.on("cartDetails", (data) => {
         <div class="card-body">
         <h3>Producto ${index + 1}</h3>
         
-        <h5 class="card-title" id="title">${element.title}</h5>
-        <p class="card-text">${element.description}</p>
+        <h5 class="card-title" id="title">${element.productId}</h5>
+        <p class="card-text">Cantidad: ${element.quantity}</p>
         <p class="card-text">Precio: $ ${element.price}</p>
         <p class="card-text">Stock:${element.stock}</p>
         
