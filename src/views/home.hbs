@@ -3,17 +3,23 @@
 
 <h3 style="text-align: center;">Listado de productos</h3>
 
-<p>Filtrar por:</p>
+
+<div class="btn-filter">
 
 
-<button onclick=filtrar("Remera")>Remera</button>
-<button onclick=filtrar("Pantalón")>Jean</button>
+<button onclick=filtrar("Remera") class="btnFilter">Remeras</button>
+<button onclick=filtrar("Pantalón") class="btnFilter">Jeans</button>
+<button onclick=filtrar("Camisa") class="btnFilter">Camisas</button>
+
+</div>
 
 
 
 <div id="filtrado"></div>
-<div id="productList"></div>
+<div id="productList" class="productList"></div>
 
+
+<div class="homeP">
  {{#each products}} {{!--le indico de que array voy a renderizar --}}
  <div style="display: flex; flex-direction: row; align-items: center">
     <div class="card tarjeta" style="width: 18rem; border: 2px solid">
@@ -26,6 +32,7 @@
         </div>
     </div>
 {{/each}}
+</div>
 <br>
 
 

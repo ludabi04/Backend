@@ -1,6 +1,36 @@
 .homeProd{
     text-align: center;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
     
+}
+
+.homeP{
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.btn-filter {
+    display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+    padding:3rem 5rem;
+}
+
+.btnFilter {
+    background-color: blue;
+    color: white;
+}
+
+.productList{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 1rem 5rem;
+  gap: 8rem;
 }
 
 * {

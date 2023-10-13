@@ -14,6 +14,8 @@
 
 }
 .card {
+  display: flex;
+  flex-direction: row;
   text-align: center;
   align-items: center;
   margin: 1rem;
@@ -71,15 +73,18 @@
 }
 
 .see {
-    grid-area: see;
-    color: rgb(21, 18, 18);
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    color: rgb(21, 18, 18);
+    
     align-items: center;
-    justify-content: space-around;
 }
 .productList{
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 label {

@@ -40,7 +40,7 @@ socketClient.on("productosGuardados", (data) => {
         <h5 class="card-title" id="title">${elm.title}</h5>
         <p class="card-text">Disponibles: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
-        <p class="card-text">Categoria: ${elm.category}</p>
+        <p class="card-text">Categoria: ${elm.category.value}</p>
         <button onclick=eliminar("${elm._id}")>Eliminar</button>
         <button onclick=addCart("${elm._id}")>Eliminar</button> 
         
