@@ -113,10 +113,12 @@ socketServer.on("connection", async (socket) => {
             const idNewCart = newCarro._id
             console.log("nuevo id", idNewCart)
             const prodIncart = await cartsService.prodInCarts(idNewCart, data)
+            console.log("ProdIncart", prodIncart)
         } else {
             const carritoFinalId = carritos[carritoFinal].id
             console.log("carrito final", carritoFinalId)
             const prodInCart = await cartsService.prodInCarts(carritoFinalId, data)
+            console.log("ProdIncart", prodInCart)
         }
         
     }); 

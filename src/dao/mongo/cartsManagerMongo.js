@@ -18,7 +18,7 @@ export class cartsManagerMongo {
     };
     async getCarts() { // aca se puede poner el filtro ()
         try {
-            const result = await this.model.find();
+            const result = await cartsModel.find();
             return result;
         } catch (error) {
             console.log("error al obtener el carro", error.message)
@@ -28,7 +28,7 @@ export class cartsManagerMongo {
     };
     async getCartsById(cId) {
         try {
-            const result = await this.model.findById(cId);
+            const result = await cartsModel.findById(cId);
             return result;
         } catch (error) {
             console.log("error getCartsById", error.message)
@@ -53,10 +53,10 @@ export class cartsManagerMongo {
                 productId: prodId,
                 quantity: 1
             }
-                const result = cartsExist.products.push(prodId)
-                const Finalresult = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true })
-                console.log(Finalresult)
-                console.log("result", Finalresult)
+                const result = cartsExist.products.push(newProdCart)
+                const finalResult = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true })
+                return finalResult;
+                console.log("result", finalResult)
             
                 }
         }

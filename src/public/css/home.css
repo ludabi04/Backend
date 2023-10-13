@@ -24,6 +24,34 @@
     color: white;
 }
 
+
+.menu{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: center;
+   height: 2rem;
+    background-color: rgb(62, 62, 123);
+   position: sticky;
+   padding: 2rem;
+    top: 0;
+    z-index: 1;
+}
+
+.menuItem {
+    text-decoration: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    background-color: rgb(62, 62, 123);
+    font-size: 1.3rem;
+}
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}
+
 .productList{
   display: flex;
   flex-direction: row;

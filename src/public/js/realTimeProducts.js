@@ -11,6 +11,8 @@ createProductForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(createProductForm);
     const jsonData = {};
+    const select = document.getElementById("optionSelected");
+    
     //itero cada campo del arreglo
     for (const [key, value] of formData.entries()) {
         jsonData[key] = value;
