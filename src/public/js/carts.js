@@ -17,18 +17,19 @@ socketClient.on("cartDetails", (data) => {
     let pageDetails = "";
     for (let index = 0; index < products.length; index++) {
         const element = products[index];
-        console.log(element)
+        console.log("elementos", element)
         pageDetails +=
             
             ` <div class="card">
-        <div class="card-body">
-        <h3>Producto ${index + 1}</h3>
-        
-        <h5 class="card-title" id="title">${element.productId}</h5>
-        <p class="card-text">Cantidad: ${element.quantity}</p>
-        <p class="card-text">Precio: $ ${element.price}</p>
-        <p class="card-text">Stock:${element.stock}</p>
-        
+                <div class="card-body">
+                <h3>Producto ${index + 1}</h3>
+                
+                <h5 class="card-title" id="title">${element.productId.title}</h5>
+                <p class="card-text">Cantidad: ${element.quantity}</p>
+                <p class="card-text">Precio: $ ${element.productId.price}</p>
+                <p class="card-text">Stock:${element.productId.stock}</p>
+                <a href="${element.productId.thumbnail}"><img src="${element.productId.thumbnail}" class="imgCartDetail"/></a>
+            </div>
        </div>
       ` 
             

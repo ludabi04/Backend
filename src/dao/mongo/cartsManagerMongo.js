@@ -28,7 +28,8 @@ export class cartsManagerMongo {
     };
     async getCartsById(cId) {
         try {
-            const result = await cartsModel.findById(cId);
+            const result = await this.model.findById(cId).populate("products.productId").lean();
+            console.log("resultado", result)
             return result;
         } catch (error) {
             console.log("error getCartsById", error.message)
@@ -46,7 +47,7 @@ export class cartsManagerMongo {
 
             if (productExist) {
                 productExist.quantity += 1
-                const result = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true })
+                const result = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true });
                 console.log(result)
             } else {
             const newProdCart = {
@@ -54,7 +55,7 @@ export class cartsManagerMongo {
                 quantity: 1
             }
                 const result = cartsExist.products.push(newProdCart)
-                const finalResult = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true })
+                const finalResult = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true });
                 return finalResult;
                 console.log("result", finalResult)
             
@@ -70,7 +71,7 @@ export class cartsManagerMongo {
     async prodBycarts(cartId) {
         try {
             console.log("cartID", cartId)
-            const prodCart = await cartsService.getCartsById(cartId).populate("products");
+            const prodCart = await cartsService.getCartsById(cartId)
             return prodCart;
         } catch (error) {
             throw new Error("error en el carrito")

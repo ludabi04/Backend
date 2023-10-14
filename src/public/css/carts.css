@@ -7,6 +7,22 @@
     .estructuraCarts {
 
         display: flex;
+        flex-direction: column;
+    }
+
+    .carritos {
+        align-self: center;
+    }
+
+    .imgCartDetail {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .cartDetails {
+        display: flex;
         flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
     }
 

@@ -1,4 +1,3 @@
-
 console.log("socket js para el front");
 
 const socketClient = io();
@@ -80,7 +79,14 @@ let totalCarrito = document.getElementById("totalCarritos");
 
 
 function addCart(id) {
-    socketClient.emit("productoAAgregar", id)
+    socketClient.emit("productoAAgregar", id);
+    Toastify({
+
+text: `Producto agregado al carrito ${id}`,
+
+duration: 3000
+
+}).showToast();
     console.log("agregar al carrito", id);
     
 
@@ -101,3 +107,5 @@ socketClient.on("productoAlCarrito", (data) => {
         <p class="card-text">Precio: $ ${data.price}</p>
         <p class="card-text">Categoria: ${data.category}</p>
         `}); 
+
+        

@@ -118,7 +118,6 @@ socketServer.on("connection", async (socket) => {
             const carritoFinalId = carritos[carritoFinal].id
             console.log("carrito final", carritoFinalId)
             const prodInCart = await cartsService.prodInCarts(carritoFinalId, data)
-            console.log("ProdIncart", prodInCart)
         }
         
     }); 
@@ -131,8 +130,8 @@ socketServer.on("connection", async (socket) => {
 
     socket.on("masDetalles", async (id) => {
         console.log("id carrito", id)
-        const cartDetails = await cartsService.getCartsById(id);
-        const prodCarts = cartDetails.products
+        const cartDetails = await cartsService.getCartsById(id)
+        const prodCarts = cartDetails.products;
         console.log("cart details", prodCarts[0].quantity)
         socket.emit("cartDetails", prodCarts)
     });
