@@ -81,11 +81,17 @@ let totalCarrito = document.getElementById("totalCarritos");
 function addCart(id) {
     socketClient.emit("productoAAgregar", id);
     Toastify({
-
-text: `Producto agregado al carrito ${id}`,
-
-duration: 3000
-
+  text: "Producto agregado. VER",
+  duration: 3000,
+  destination: "/carts",
+  newWindow: true,
+  close: true,
+  gravity: "top", // `top` or `bottom`
+  position: "left", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+  },
 }).showToast();
     console.log("agregar al carrito", id);
     
