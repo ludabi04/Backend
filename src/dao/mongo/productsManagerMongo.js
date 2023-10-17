@@ -71,4 +71,23 @@ export class productsManagerMongo {
         } 
     }
 
+    async getProductsLimit(page, limit) { // aca se puede poner el filtro ()
+         try {
+             const result = await productsModel.paginate({
+                
+             },
+                 {
+                     limit: parseInt(limit),
+                     page: parseInt(page),
+                     lean:true
+                 });
+             console.log("result pag", result)
+            return result;
+        } catch (error) {
+            console.log("error al obtener prodcutos", error.message)
+            throw new Error("error al obtener el producto");
+
+        }
+     };
+
     }

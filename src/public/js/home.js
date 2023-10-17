@@ -5,15 +5,23 @@ const socketClient = io();
 const botonFiltro = document.getElementById("botonFiltro")
 
 
+function changePage() {
+    const verPage = document.getElementById("pagina").value
+    const verQuantity = document.getElementById("resultados").value
+    socketClient.emit("paginado", verPage, verQuantity)
+    console.log(verPage, verQuantity)
+}
+
+
 function filtrar(filtro) {
     socketClient.emit("filtro", filtro);
     console.log("filtro", filtro)
 }
 
 
-socketClient.on("productosActualizados", (data) => { 
+socketClient.on("productosGuardados", (data) => { 
     let prodElem = "";
-    data.forEach(elm => {
+    data.docs.forEach(elm => {
         prodElem +=
         `<div class="homeProd">
                 <div class="card homeProd" style="width: 18rem; border: 2px solid">
