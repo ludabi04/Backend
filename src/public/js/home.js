@@ -5,12 +5,12 @@ const socketClient = io();
 const botonFiltro = document.getElementById("botonFiltro")
 
 
-function changePage() {
-    const verPage = document.getElementById("pagina").value
-    const verQuantity = document.getElementById("resultados").value
-    socketClient.emit("paginado", verPage, verQuantity)
-    console.log(verPage, verQuantity)
-}
+// function changePage() {
+//     const verPage = document.getElementById("pagina").value
+//     const verQuantity = document.getElementById("resultados").value
+//     socketClient.emit("paginado", verPage, verQuantity)
+//     console.log(verPage, verQuantity)
+// }
 
 
 function filtrar(filtro) {
@@ -21,7 +21,7 @@ function filtrar(filtro) {
 
 socketClient.on("productosGuardados", (data) => { 
     let prodElem = "";
-    data.docs.forEach(elm => {
+    data.forEach(elm => {
         prodElem +=
         `<div class="homeProd">
                 <div class="card homeProd" style="width: 18rem; border: 2px solid">

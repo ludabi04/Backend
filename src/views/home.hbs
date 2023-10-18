@@ -1,12 +1,6 @@
 <h1 class="title">Pagina de home</h1>
 
-<p>Ir a página</p>
-<input type="number" id="pagina" input="value">
-{{!-- <button onclick=changePage()>Buscar</button> --}}
 
-<p>Cantidad por pagina</p>
-<input type="number" id="resultados" input="value">
-<button onclick=changePage()>Mostrar</button>
 
 
 <h3 style="text-align: center;">Listado de productos</h3>
@@ -28,7 +22,7 @@
 
 
 <div class="homeP">
- {{#each docs}} {{!--le indico de que array voy a renderizar --}}
+ {{#each payload}} {{!--le indico de que array voy a renderizar --}}
  <div style="display: flex; flex-direction: row; align-items: center">
     <div class="card tarjeta" style="width: 18rem; border: 2px solid">
         <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
@@ -40,6 +34,8 @@
         </div>
     </div>
 {{/each}}
+
+
 </div>
 <br>
 
