@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import { ProductManagerFiles } from "./dao/productManagerFiles.js";
 import { productRouter } from "./routes/productos.routes.js";
 import { cartsRouter } from "./routes/cart.routes.js";
@@ -14,6 +15,8 @@ import { chatRouter } from "./routes/chat.routes.js";
 import { messagesManagerMongo } from "./dao/mongo/chatManagerMongo.js";
 import { cartsManagerMongo } from "./dao/mongo/cartsManagerMongo.js";
 import { productsModel } from "./dao/mongo/models/products.model.js";
+import { usersRouter } from "./routes/users.routes.js";
+import cookieParser from "cookie-parser";
 
 
 const managerProductService = new productsManagerMongo();
@@ -34,12 +37,24 @@ const httpServer = app.listen(port, () => console.log("server funcionando"))
 
 const socketServer = new Server(httpServer);
 
+//configuracion de la session
+app.use(session({
+    secret: 'ldb',
+    resave: true,
+    saveUninitialized:true
+}))
+
 //conexion a bBDD
 
 
 
 app.use(express.urlencoded({extended:true})) // permite caracteres especiales
 app.use(express.json());
+
+
+//cookies
+app.use(cookieParser("claveCookieCoder"))
+
 
 //agregando la carpeta public
 app.use(express.static(path.join(__dirname, "/public")))
@@ -55,7 +70,7 @@ app.use(viewsRouter);
 // app.use("/realtimeproducts", productRouter);
 // app.use("/chat", chatRouter)
 // app.use("/api/products", productRouter);
-// app.use("/api/carts", cartsRouter);
+app.use("/", usersRouter);
 
 //configuracion del socket server
 

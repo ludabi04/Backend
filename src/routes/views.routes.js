@@ -5,6 +5,7 @@ import { cartsService } from "../dao/index.js";
 
 
 
+
 const router = Router();
 
 
@@ -45,6 +46,45 @@ router.get("/carts", async (req, res) => {
         
     }
 });
+
+
+// //ruta para crear una cookie
+// router.get("/set-cookie", (req, res) => {
+//     // res.cookie("nombreCookie", "valorCookie", { maxAge: 5000 }).send("cookie creada");
+//     res.cookie("nombreCookie", "valorCookie").send("cookie creada");
+
+//     //cookie(nombreCookie, valoorCookie, options)
+// });
+
+// //ruta para leer las cookies que vienen del cliente
+
+// router.get("/get-cookies", (req, res) => {
+//     console.log(req.cookies);
+//     res.send("cookies recibidas")
+// });
+
+// //ruta para eliminar las cookies
+
+// router.get("/delete-cookies", (req, res) => {
+//     res.clearCookie("nombreCookie").send("la cookie fue eliminada")
+// })
+
+// //ruta cookie firmada
+
+// router.get("/set.signedCookie", (req, res) => {
+//     res.cookie("userData", { email: "pepe@gmail.com", role: "user" }, { signed: true }).send("cookie creada")
+// });
+
+// //endpoint que lee las cookies firmadas
+// router.get("/get.signedCookie", (req, res) => {
+//     console.log(req.signedCookies)
+//     res.send("cookies recibidas")
+// });
+// router.get("/create-cookie", (req, res) => {
+//     console.log(req.cookies)
+//     res.send("cookies recibidas!")
+// });
+
 
 
 
