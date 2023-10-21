@@ -5,6 +5,20 @@ const socketClient = io();
 const botonFiltro = document.getElementById("botonFiltro")
 
 
+var select = document.getElementById("opciones");
+
+
+function update() {
+    var select = document.getElementById('opciones');
+    var option = select.options[select.selectedIndex];
+    socketClient.emit("limiteElegido", select.value)
+    console.log(select.value)
+}
+
+
+
+
+
 // function changePage() {
 //     const verPage = document.getElementById("pagina").value
 //     const verQuantity = document.getElementById("resultados").value
@@ -23,7 +37,7 @@ socketClient.on("productosGuardados", (data) => {
     let prodElem = "";
     data.forEach(elm => {
         prodElem +=
-        `<div class="homeProd">
+        `<div class="productosHome">
                 <div class="card homeProd" style="width: 18rem; border: 2px solid">
                     <img src=${elm.thumbnail} class="card-img-top" alt="...">
                     <div class="card-body">
@@ -32,8 +46,6 @@ socketClient.on("productosGuardados", (data) => {
                         <p class="card-text">Disponibles: ${elm.stock}</p>
                         <p class="card-text">Precio: $ ${elm.price}</p>
                         <p class="card-text">Categoria: ${elm.category}</p>
-                        <button onclick=eliminar("${elm._id}")>Eliminar</button> 
-                        <button onclick=addCart("${elm._id}")>Agregar al carrito</button>
                     </div> 
                 </div>
         </div>`
@@ -47,7 +59,7 @@ socketClient.on("dataFilter", (data) => {
     let prodElem = "";
     data.forEach(elm => {
         prodElem +=
-        `<div class="homeProd">
+        `<div class="productosHome">
                 <div class="card homeProd" style="width: 18rem; border: 2px solid">
                     <img src=${elm.thumbnail} class="card-img-top" alt="...">
                     <div class="card-body">
@@ -56,12 +68,10 @@ socketClient.on("dataFilter", (data) => {
                         <p class="card-text">Disponibles: ${elm.stock}</p>
                         <p class="card-text">Precio: $ ${elm.price}</p>
                         <p class="card-text">Categoria: ${elm.category}</p>
-                        <button onclick=eliminar("${elm._id}")>Eliminar</button> 
-                        <button onclick=addCart("${elm._id}")>Agregar al carrito</button>
                     </div> 
                 </div>
         </div>`
 });
-    productList.innerHTML = prodElem;
+    productosHome.innerHTML = prodElem;
 });
 

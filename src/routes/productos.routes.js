@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     try {
         const limit = req.query.limit;
         const limitNumber = parseInt(limit);
-        const products = await productsService.getProducts();
+        const products = await productsService.getProductsLimit(limit, page);
         if (limit) {
             const productsLimit = products.slice(0, limitNumber);
             res.json({status: "success", data: productsLimit})

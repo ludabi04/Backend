@@ -22,8 +22,14 @@
 .btnFilter {
     background-color: blue;
     color: white;
+    text-decoration: none;
 }
 
+.limite {
+    display: flex;
+    padding-right: 1rem;
+    justify-content: end;
+}
 
 .menu{
    display: flex;
@@ -53,13 +59,13 @@
 }
 
 .productList{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 1rem 5rem;
-  gap: 8rem;
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1rem 5rem;
+    gap: 8rem;
+    }
 
 * {
     background-color: skyblue;

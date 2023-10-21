@@ -39,7 +39,7 @@ socketClient.on("productosGuardados", (data) => {
         <div class="card-body">
         <p>ID: #${elm._id}</p>
         <h5 class="card-title" id="title">${elm.title}</h5>
-        <p class="card-text">Disponibles: ${elm.stock}</p>
+        <p class="card-text">Disponibles$: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category.value}</p>
         <button onclick=eliminar("${elm._id}")>Eliminar</button>
@@ -62,7 +62,7 @@ socketClient.on("productosActualizados", (data) => {
         <div class="card-body">
         <p>ID: #${elm._id}</p>
         <h5 class="card-title" id="title">${elm.title}</h5>
-        <p class="card-text">Disponibles: ${elm.stock}</p>
+        <p class="card-text">Disponible: ${elm.stock}</p>
         <p class="card-text">Precio: $ ${elm.price}</p>
         <p class="card-text">Categoria: ${elm.category}</p>
         <button onclick=eliminar("${elm._id}")>Eliminar</button>
@@ -109,7 +109,7 @@ socketClient.on("productoAlCarrito", (data) => {
         <div class="card-body">
         <p>ID: #${data._id}</p>
         <h5 class="card-title" id="title">${[data.products].title}</h5>
-        <p class="card-text">Disponibles: ${data.stock}</p>
+        <p class="card-text">Disponibles!: ${data.stock}</p>
         <p class="card-text">Precio: $ ${data.price}</p>
         <p class="card-text">Categoria: ${data.category}</p>
         `}); 

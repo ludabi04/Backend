@@ -7,6 +7,15 @@
 
 
 
+<form class="limite">Mostrar
+    <select name="opciones" id="opciones" onchange="update()">
+        <option value=3 >3</option>
+        <option value=5>5</option>
+        <option value=7>7</option>
+        <option value=10 selected>10</option>
+    </select>
+</form>
+
 
 <h3 style="text-align: center;">Listado de productos</h3>
 
@@ -17,28 +26,31 @@
 <button onclick=filtrar("Remera") class="btnFilter">Remeras</button>
 <button onclick=filtrar("Pantalón") class="btnFilter">Jeans</button>
 <button onclick=filtrar("Camisa") class="btnFilter">Camisas</button>
+<button class="btnFilter"><a href="/" class="btnFilter">Todo</a></button>
 
 </div>
 
 
 
 <div id="filtrado"></div>
-<div id="productList" class="productList"></div>
+{{!-- <div id="productList" class="productList"></div> --}}
 
 
-<div class="homeP">
- {{#each payload}} {{!--le indico de que array voy a renderizar --}}
- <div style="display: flex; flex-direction: row; align-items: center">
-    <div class="card tarjeta" style="width: 18rem; border: 2px solid">
-        <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
-        <div class="card-body" style="text-align:center">
-            <h5 class="card-title">{{title}}</h5>
-            <p class="card-text">{{this.description}}</p>
-            <p class="card-text">Precio: ${{this.price}}</p>
-            <p class="card-text">Disponibles: {{this.stock}}</p>
-        </div>
+<div class="homeProd" id="productosHome">
+ {{#each dataProducts.payload}} {{!--le indico de que array voy a renderizar --}}
+<div class="card homeProd" style="width: 18rem; border: 2px solid">
+    <img src={{this.thumbnail}} class="card-img-top" alt="...">
+    <div class="card-body">
+        <p>ID: #{{this.id}}</p>
+        <h5 class="card-title" id="title">{{this.title}}</h5>
+        <p class="card-text">Disponibles: {{this.stock}}</p>
+        <p class="card-text">Precio: ${{this.price}}</p>
+        <p class="card-text">Categoria:{{this.category}}</p>
+        
     </div>
+</div>
 {{/each}}
+
 
 
 </div>

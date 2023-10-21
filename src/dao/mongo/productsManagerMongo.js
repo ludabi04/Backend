@@ -71,30 +71,18 @@ export class productsManagerMongo {
         } 
     }
 
-    async getProductsLimit() { // aca se puede poner el filtro ()
-        try {
-            const result = await productsModel.paginate();
-        
-            const dataProducts = {
-                status: "success",
-                payload: result.docs,
-                totalPages: result.totalPages,
-                prevPage: result.prevPage,
-                nextPage: result.nextPage,
-                page: result.page,
-                hasPrevPage: result.hasPrevPage,
-                hasNextPage: result.hasNextPage,
-                prevLink: result.prevPage, // //Link directo a la página previa (null si hasPrevPage=false)
-                nextLink: result.nextPage // // Link directo a la página siguiente (null si hasNextPage=false)
 
-            }
-             console.log("result paginado", dataProducts)
-            return dataProducts;
+    
+
+    async getProductsLimit(limit, page, sort) { // aca se puede poner el filtro ()
+        try {
+            const result = await this.model.paginate({}, { limit: limit, page: page, sort:sort, lean:true})
+            return result;
         } catch (error) {
             console.log("error al obtener prodcutos", error.message)
             throw new Error("error al obtener el producto");
 
         }
-     };
+    };
 
     }

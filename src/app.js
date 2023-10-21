@@ -77,20 +77,24 @@ app.use("/", usersRouter);
 socketServer.on("connection", async (socket) => {
     //se conecta un usuario y le manda los mensajes
     const mensajes = await chatService.getMessages();
-    const products = await productsService.getProductsLimit()
+    const totalProd = await productsService.getProducts()
+    const limitTotal = totalProd.length
+    const products = await productsService.getProductsLimit(limitTotal, 1)
     const carritos = await cartsService.getCarts();
-    console.log("prod home", products)
+    // console.log("prod home", products)
     socket.emit("reenvio", mensajes);
-    socket.emit(("productosGuardados"), products.payload);
+    console.log("prod docs", products.totalDocs)
+    socket.emit(("productosGuardados"), products.docs);
     // se conecta un usuario y le manda los productos
 
     socket.emit("carritostotales", carritos)
     //enviando los productos al cliente
-    // socket.on("paginado", async ()=>{
-    //     const productsLimit = await productsService.getProductsLimit()
-    //     console.log(productsLimit)
-    // })
-    socket.emit(("productosActualizados"), products);
+    socket.on("limiteElegido", async (limit)=>{
+        const productsLimit = await productsService.getProductsLimit(limit)
+        socket.emit("dataFilter", productsLimit.docs)
+        console.log("nuevos limit", productsLimit)
+    })
+    socket.emit(("productosActualizados"), products.docs);
     // recibir los datos del producto desde el 
     socket.on("addProduct", async (data) => {
         await productsService.addProduct(data);
