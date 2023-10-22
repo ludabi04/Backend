@@ -96,6 +96,31 @@ router.get("/carts", async (req, res) => {
     }
 });
 
+router.get("/signup", async (req, res) => {
+    try {
+       
+        res.render("signupView")
+    } catch (error) {
+        
+    }
+});
+router.get("/profile", async (req, res) => {
+    try {
+       
+        res.render("profileView")
+    } catch (error) {
+        
+    }
+});
+router.get("/login", async (req, res) => {
+    try {
+       
+        res.render("loginView")
+    } catch (error) {
+        
+    }
+});
+
 
 // //ruta para crear una cookie
 // router.get("/set-cookie", (req, res) => {
