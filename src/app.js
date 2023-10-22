@@ -15,8 +15,9 @@ import { chatRouter } from "./routes/chat.routes.js";
 import { messagesManagerMongo } from "./dao/mongo/chatManagerMongo.js";
 import { cartsManagerMongo } from "./dao/mongo/cartsManagerMongo.js";
 import { productsModel } from "./dao/mongo/models/products.model.js";
-import { usersRouter } from "./routes/users.routes.js";
+import { usersRouter } from "./routes/sessions.routes.js";
 import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
 
 
 const managerProductService = new productsManagerMongo();
@@ -39,10 +40,17 @@ const socketServer = new Server(httpServer);
 
 //configuracion de la session
 app.use(session({
+    //agregar el sistema de almacenamiento de sesiones de mongo
+    store: MongoStore.create({
+        ttl: 60,
+        mongoUrl: ("mongodb+srv://ludabi:lu020480@ludabi.wgdvuse.mongodb.net/ecommerceDB?retryWrites=true&w=majority")
+    }),
     secret: 'ldb',
     resave: true,
-    saveUninitialized:true
-}))
+    saveUninitialized: true
+}));
+
+
 
 //conexion a bBDD
 
