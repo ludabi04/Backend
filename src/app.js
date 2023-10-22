@@ -18,14 +18,17 @@ import { productsModel } from "./dao/mongo/models/products.model.js";
 import { usersRouter } from "./routes/sessions.routes.js";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
+import { UsersManagerMongo } from "./dao/mongo/usersManagerMongo.js";
 
 
 const managerProductService = new productsManagerMongo();
 const managerChatService = new messagesManagerMongo();
 const managerCartService = new cartsManagerMongo();
+const managerUserService = new UsersManagerMongo()
 console.log(managerProductService)
 console.log(managerChatService)
 console.log(managerCartService) 
+console.log(managerUserService) 
 
 
 //servidor express
