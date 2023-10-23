@@ -16,4 +16,14 @@ export class UsersManagerMongo {
 
         }
     };
+
+    async getUsers() {
+        try {
+            const usuarios = await this.model.find()
+            // console.log("usuarios q estan", usuarios)
+            return usuarios;
+        } catch (error) {
+            throw new Error ("usuario no encontrado")
+        }
+    }
 };

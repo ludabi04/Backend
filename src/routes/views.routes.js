@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
 //                 // nextLink: result.nextPage // // Link directo a la página siguiente (null si hasNextPage=false)
 
 //             }
-    
+
 //     const dataProd = { productos: dataProducts.payload }
 //     const data = dataProd.productos
 //             console.log("dataProducts", data)

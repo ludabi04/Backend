@@ -3,7 +3,7 @@ import { userService } from "../dao/index.js";
 
 const router = Router();
 
-router.post("/login", async (req, res) => {
+router.post("/signup", async (req, res) => {
     try {
         
     console.log(req.session);
@@ -23,9 +23,39 @@ router.post("/login", async (req, res) => {
 
     
 });
+router.post("/login", async (req, res) => {
+    try {
+        const loginForm = req.body;
+    const searchUser = loginForm.userEmail;
+    const passUser = loginForm.passUser;
+    console.log("usuario buscado", searchUser);
+    console.log("pass buscado", passUser);
+    const userExist = await userService.getUsers();
+    const exist = userExist.find(email => email.email === searchUser);
+    console.log("existe", exist)
+    if (exist) {
+        const passExist = userExist.find(p => p.password === passUser)
+        if (passExist) {
+            console.log("ambos existen");
+            res.render("home", { message : "usuario creado con exito" } )
+        } else {
+            //pass incorrecto
+            console.log("passwor incorrecto")
+            res.render("loginView", { error: "el pass es incorrecto" })
+        }
+    } else {
+        res.render("loginView", {error: "el usuario no existe"})
+    }
+} catch (error) {
+    res.render("loginView", {error: "el usuario no existe"})
+    }
+    
+})
 
 router.get("/profile", (req, res) => {
-    console.log("usuario conectado:", req.session);
+    
+    
+    console.log("usuario buscado:", req.body);
     if (req.session.email){
     res.send(`Bienvenido ${req.session.email}`)
     } else {
@@ -33,7 +63,9 @@ router.get("/profile", (req, res) => {
 }})
 
 //desloguear usuario
-router.get("/logout", (req, res) => {
+router.get("/logout", async (req, res) => {
+
+
     console.log("usuario conectado:", req.session);
     req.session.destroy((err) => {
         if (err) return res.send("no se pudo eliminar sesion");
