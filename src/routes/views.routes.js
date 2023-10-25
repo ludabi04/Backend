@@ -11,6 +11,7 @@ const router = Router();
 
 //routes 
 
+
 router.get("/", async (req, res) => {
     try { 
         const prodTotal = await productsService.getProducts();
@@ -104,14 +105,23 @@ router.get("/signup", async (req, res) => {
         
     }
 });
-router.get("/profile", async (req, res) => {
+router.get("/profile", (req, res) => {
     try {
-       
-        res.render("profileView")
+        const user = req.session.email;
+    if (user){
+        res.render("profileView", {user})
+        console.log("use",user)
+    
+    } else {
+        res.send("necesitas iniciar session")
+}
     } catch (error) {
-        
+        res.send("no es posible acceder al perfill")
     }
-});
+
+
+    })
+
 router.get("/login", async (req, res) => {
     try {
        
