@@ -1,13 +1,15 @@
 import { Router } from "express";
 import { userService } from "../dao/index.js";
+import { createHash, inValidPassword } from "../utils.js";
 
 const router = Router();
 
 router.post("/signup", async (req, res) => {
     try {
         
-    console.log(req.session);
-    const loginForm = req.body;
+        const loginForm = req.body;
+        loginForm.password = createHash(loginForm.password);
+        console.log(loginForm);
     req.session.first_name = loginForm.first_name;
     req.session.last_name = loginForm.last_name;
     req.session.age = loginForm.age;
@@ -32,10 +34,11 @@ router.post("/login", async (req, res) => {
     console.log("pass buscado", passUser);
     const userExist = await userService.getUsers();
     const exist = userExist.find(email => email.email === searchUser);
-    console.log("existe", exist)
-    if (exist) {
-        const passExist = userExist.find(p => p.password === passUser)
-        if (passExist) {
+    console.log("existe", exist.password)
+        if (exist) {
+        console.log("el usuario exste")
+        
+        if (inValidPassword(passUser, exist)) {
             console.log("ambos existen");
             req.session.email = searchUser;
             res.redirect("/profile")
@@ -48,7 +51,7 @@ router.post("/login", async (req, res) => {
         res.render("loginView", {error: "el usuario no existe"})
     }
 } catch (error) {
-    res.render("loginView", {error: "el usuario no existe"})
+    res.render("loginView", {error: "catch el usuario no existe"})
     }
     
 })
