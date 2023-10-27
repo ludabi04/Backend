@@ -105,6 +105,14 @@ router.get("/signup", async (req, res) => {
         
     }
 });
+router.get("/fail-signup", async (req, res) => {
+    try {
+       
+        res.render("signupView")
+    } catch (error) {
+        
+    }
+});
 router.get("/profile", (req, res) => {
     try {
         const user = req.session.email;
