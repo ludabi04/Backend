@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { userService } from "../dao/index.js";
 import { createHash, inValidPassword } from "../utils.js";
+import { usersModel } from "../dao/mongo/models/users.model.js";
 
 const router = Router();
 
@@ -28,30 +29,27 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const loginForm = req.body;
-    const searchUser = loginForm.userEmail;
-    const passUser = loginForm.passUser;
-    console.log("usuario buscado!", searchUser);
-    console.log("pass buscado", passUser);
-    const userExist = await userService.getUsers();
-    const exist = userExist.find(email => email.email === searchUser);
-    console.log("existe", exist.password)
-        if (exist) {
-        console.log("el usuario exste")
-        
-        if (inValidPassword(passUser, exist)) {
-            console.log("ambos existen");
-            req.session.email = searchUser;
-            res.redirect("/profile")
-        } else {
-            //pass incorrecto
-            console.log("passwor incorrecto")
-            res.render("loginView", { error: "el pass es incorrecto" })
+        const user = await usersModel.findOne({ email: loginForm.userEmail });
+        console.log("usuario", user)
+//     const searchUser = loginForm.userEmail;
+//     const passUser = loginForm.passUser;
+//     console.log("usuario buscado!", searchUser);
+//     console.log("pass buscado", passUser);
+//     const userExist = await userService.getUsers();
+//     const exist = userExist.find(email => email.email === searchUser);
+//     console.log("existe", exist.password)
+        if (!user) {
+            return res.render("loginView", {error: "este usuario no está registrado"})
         }
-    } else {
-        res.render("loginView", {error: "el usuario no existe"})
-    }
+        if(!inValidPassword(loginForm.passUser,user)){
+            console.log("clave incorrecta")
+        }
+        req.session.email = user.email
+        res.redirect("/profile")
+        
+//         
 } catch (error) {
-    res.render("loginView", {error: "catch el usuario no existe"})
+    res.render("loginView", {error: "No se pudo iniciar sesión"})
     }
     
 })
