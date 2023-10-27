@@ -11,8 +11,8 @@ export class UsersManagerMongo {
             console.log("resultado", result)
             return result;
         } catch (error) {
-            console.log("error al obtener prodcutos", error.message)
-            throw new Error("error al crear el producto")
+            console.log("error al agregar usuario", error.message)
+            throw new Error("error al agregar usuario")
 
         }
     };

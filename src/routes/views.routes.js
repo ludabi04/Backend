@@ -93,26 +93,25 @@ router.get("/carts", async (req, res) => {
         const data = { carts: carts }
         res.render("carts", { ...data, style: "realtimeproducts.css" })
     } catch (error) {
-        
+        res.send("no es posible acceder a los carritos")
     }
 });
 
 router.get("/signup", async (req, res) => {
     try {
-       
         res.render("signupView")
     } catch (error) {
-        
+        res.send("no es posible registrarse")
     }
 });
 router.get("/fail-signup", async (req, res) => {
     try {
-       
         res.render("signupView")
     } catch (error) {
-        
+        res.send("no es posible registrarse")
     }
 });
+
 router.get("/profile", (req, res) => {
     try {
         const user = req.session.email;

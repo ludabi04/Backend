@@ -19,7 +19,8 @@ import { usersRouter } from "./routes/sessions.routes.js";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import { UsersManagerMongo } from "./dao/mongo/usersManagerMongo.js";
-
+import passport from "passport";
+import { initializePassport } from "./config/passport.config.js";
 
 const managerProductService = new productsManagerMongo();
 const managerChatService = new messagesManagerMongo();
@@ -52,6 +53,10 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+//configurando passport
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
