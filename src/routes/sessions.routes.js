@@ -6,57 +6,23 @@ import passport from "passport";
 
 const router = Router();
 
-router.post("/signup", passport.authenticate("signupLocalStrategy", {
+router.post("/signup", passport.authenticate("signupLocalStrategy",{
     failureRedirect:"fail-signup"
-}), async (req, res) => {
-    //try {
-        
-    //     const loginForm = req.body;
-    //     loginForm.password = createHash(loginForm.password);
-    //     console.log(loginForm);
-    // req.session.first_name = loginForm.first_name;
-    // req.session.last_name = loginForm.last_name;
-    // req.session.age = loginForm.age;
-    // req.session.email = loginForm.userEmail;
-    // req.session.password = loginForm.password;
-    // const newUser = await userService.addUser(req.session) 
-    // console.log("sesion final", req.session)
-        res.render("loginView", { message : "usuario creado con exito" })
-    // } catch (error) {
-       // res.render("signupView", {error: "no se pudo registrar el usuario"} )
-    //}
+}) , async(req,res)=>{
+    res.render("loginView",{message:"Usuario registrado correctamente"});
 });
 
-router.post("fail-signup", async (req, res) => {
-    res.render("signupView", {message: message})
+router.post("/fail-signup", async (req, res) => {
+    res.render("signupView", {error:" no se pudo registrar el usuario"})
 })
-router.post("/login", async (req, res) => {
-    try {
-        // const loginForm = req.body;
-        // const user = await usersModel.findOne({ email: loginForm.userEmail });
-        // console.log("usuario", user)
-//     const searchUser = loginForm.userEmail;
-//     const passUser = loginForm.passUser;
-//     console.log("usuario buscado!", searchUser);
-//     console.log("pass buscado", passUser);
-//     const userExist = await userService.getUsers();
-//     const exist = userExist.find(email => email.email === searchUser);
-//     console.log("existe", exist.password)
-        // if (!user) {
-        //     return res.render("loginView", {error: "este usuario no está registrado"})
-        // }
-        // if(!inValidPassword(loginForm.passUser,user)){
-        //     console.log("clave incorrecta")
-        // }
-        // req.session.email = user.email
-        res.redirect("/profile")
-        
-//         
-} catch (error) {
-    res.render("loginView", {error: "No se pudo iniciar sesión"})
-    }
-    
+router.post("/fail-login", async (req, res) => {
+    res.render("loginView", {error:" no se pudo registrar el usuario"})
 })
+router.post("/login", passport.authenticate("loginLocalStrategy",{
+    failureRedirect:"/fail-login"
+}) , async(req,res)=>{
+    res.redirect("/profile");
+});
 
 router.post("/profile", async (req, res) => {
     try {

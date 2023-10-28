@@ -106,28 +106,31 @@ router.get("/signup", async (req, res) => {
 });
 router.get("/fail-signup", async (req, res) => {
     try {
-        res.render("signupView")
+        res.render("signupView", {error: "no se pudo registrar al usuario"})
     } catch (error) {
         res.send("no es posible registrarse")
     }
 });
+router.get("/fail-login", async (req, res) => {
+    try {
+        res.render("loginView", {error: "no se pudo loguear al usuario"})
+    } catch (error) {
+        res.send({error:error})
+    }
+});
 
 router.get("/profile", (req, res) => {
-    try {
-        const user = req.session.email;
-    if (user){
-        res.render("profileView", {user})
-        console.log("use",user)
-    
+     if(req.user?.email){
+         const userEmail = req.user.email;
+         const userName = req.user.first_name;
+        res.render("profileView",{userName});
     } else {
-        res.send("necesitas iniciar session")
-}
-    } catch (error) {
-        res.send("no es posible acceder al perfill")
+        res.redirect("/login");
     }
+});
 
 
-    })
+    
 
 router.get("/login", async (req, res) => {
     try {
