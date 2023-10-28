@@ -3,6 +3,9 @@ import localStrategy from "passport-local";
 import { createHash, inValidPassword } from "../utils.js ";
 import { usersModel } from "../dao/mongo/models/users.model.js";
 import { userService } from "../dao/index.js";
+import { config } from "./config.js";
+import GithubStrategy from "passport-github2";
+
 
 //localStategy: solo usa dos variables username y passwor
 export const initializePassport = () => {
@@ -19,7 +22,7 @@ export const initializePassport = () => {
                     console.log("usuario registrado ya");
 
                     //el usuarioya esta registrado
-                    return done(null,false);
+                    return done(null, false);
                 } else {
                     //el usuario no esta registrado
                     const newUser = {
@@ -44,7 +47,7 @@ export const initializePassport = () => {
             passwordField: "passUser"
         },
         async (username, password, done) => {
-            console.log("usuario", await usersModel.findOne({ email: username }) )
+            console.log("usuario", await usersModel.findOne({ email: username }))
             try {
                 const user = await usersModel.findOne({ email: username });
                 console.log("user", user)
@@ -52,19 +55,53 @@ export const initializePassport = () => {
                     console.log("usuario no registrado aun");
 
                     //el usuarioya esta registrado
-                    return done(null,false);
+                    return done(null, false);
                 }
                 if (!inValidPassword(password, user)) {
                     return done(null, false)
                 }
                 //validamos que el usuario existe y la contraseña es correcta
-                return done(null,user)
+                return done(null, user)
             } catch (error) {
                 console.log("entró aca");
                 return done(error);
             }
         }
     ));
+
+    //Estrategia de registro con github
+    passport.use("signupGithubStrategy", new GithubStrategy(
+        {
+            clientID: config.github.clientId,
+            clientSecret: config.github.clientSecret,
+            callbackURL: `http://localhost:8080${config.github.callbackUrl}`
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                console.log("profile", profile);
+                const user = await usersModel.findOne({ email: profile.username });
+                if (user) {
+                    console.log("usuario registrado ya");
+
+                    //el usuarioya esta registrado
+                    return done(null, user);
+                } else {
+                    //el usuario no esta registrado
+                    const newUser = {
+                        first_name: profile._json.name,
+                        last_name:profile._json.name,
+                        age:profile.id,
+                        email: profile.username,
+                        password: createHash(profile.id)
+                    };
+                
+                    console.log("nuevo usuario", newUser)
+                    const userCreated = await userService.addUser(newUser);}
+                } catch (error) {
+                    return done(error)
+                }
+            }
+        ));
 
 
     passport.serializeUser((user, done) => {

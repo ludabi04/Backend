@@ -123,7 +123,7 @@ router.get("/profile", (req, res) => {
      if(req.user?.email){
          const userEmail = req.user.email;
          const userName = req.user.first_name;
-        res.render("profileView",{userName});
+        res.render("profileView",{userEmail});
     } else {
         res.redirect("/login");
     }

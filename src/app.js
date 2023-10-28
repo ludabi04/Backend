@@ -21,6 +21,7 @@ import MongoStore from "connect-mongo";
 import { UsersManagerMongo } from "./dao/mongo/usersManagerMongo.js";
 import passport from "passport";
 import { initializePassport } from "./config/passport.config.js";
+import { config } from "./config/config.js";
 
 const managerProductService = new productsManagerMongo();
 const managerChatService = new messagesManagerMongo();
@@ -47,9 +48,9 @@ app.use(session({
     //agregar el sistema de almacenamiento de sesiones de mongo
     store: MongoStore.create({
         ttl: 60,
-        mongoUrl: ("mongodb+srv://ludabi:lu020480@ludabi.wgdvuse.mongodb.net/ecommerceDB?retryWrites=true&w=majority")
+        mongoUrl: (config.mongo.url)
     }),
-    secret: 'ldb',
+    secret: config.server.secretSession,
     resave: true,
     saveUninitialized: true
 }));

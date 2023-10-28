@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { config } from "./config.js";
 
 export const connectDB = async() => {
     try {
-        await mongoose.connect("mongodb+srv://ludabi:lu020480@ludabi.wgdvuse.mongodb.net/ecommerceDB?retryWrites=true&w=majority");
+        await mongoose.connect(config.mongo.url);
         console.log("bbdd conectada");
 
         

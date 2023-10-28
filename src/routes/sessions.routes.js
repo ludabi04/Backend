@@ -3,6 +3,7 @@ import { userService } from "../dao/index.js";
 // import { createHash, inValidPassword } from "../utils.js";
 // import { usersModel } from "../dao/mongo/models/users.model.js";
 import passport from "passport";
+import { config } from "../config/config.js";
 
 const router = Router();
 
@@ -30,8 +31,19 @@ router.post("/profile", async (req, res) => {
     } catch (error) {
         res.send("necesitas iniciar session ya")
     }
-})
+});
 
+//Ruta de registro con github
+router.get("/signup-github", passport.authenticate("signupGithubStrategy"));
+
+
+//Ruta del callback con github
+
+router.get(config.github.callbackUrl, passport.authenticate("signupGithubStrategy",{
+    failureRedirect:"/fail-signup"
+}), (req,res)=>{
+    res.redirect("/profile");
+});
 
     
 
