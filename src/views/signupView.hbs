@@ -1,18 +1,22 @@
-<h1>PAgina signup</h1>
+<h3>Registrate</h3>
 {{error}}
 {{message}}
-<form method="post" action="/signup">
+<div class="signUp">
+        <form method="post" action="/signup" class="formSign">
 
-    <input type="text" name="first_name" placeholder="nombre de usuario" id="">
-    <input type="text" name="last_name" placeholder="apellido de usuario" id="">
-    <input type="number" name="age" placeholder="edad de usuario" id="">
-    <input type="email" name="userEmail" placeholder="correo de usuario" id="">
-    <input type="password" name="password" placeholder="password de usuario" id="">
-    <button>Registrate</button>
-</form>
-<a href="/signup-github">
-    <button>
-        Registrarse con Github
-    </button>
-</a>
+            <input type="text" name="first_name" placeholder="nombre de usuario" id="">
+            <input type="text" name="last_name" placeholder="apellido de usuario" id="">
+            <input type="number" name="age" placeholder="edad de usuario" id="">
+            <input type="email" name="userEmail" placeholder="correo de usuario" id="">
+            <input type="password" name="password" placeholder="password de usuario" id="">
+            <button>Registrate</button>
+        </form>
+        <p style="color:rgb(48, 29, 147)">O entrá con GitHub:</p>
+        <a href="/signup-github">
+            <button>
+                <img src="https://www.svgrepo.com/show/475654/github-color.svg" class="logoGit" alt="logo-Git" />
+            </button>
+        </a>
+
+</div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
