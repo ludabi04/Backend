@@ -3,7 +3,6 @@ import { cartsService, productsService } from "../dao/index.js";
 
 const router = Router();
 
-
 //http://localhost:8080/api/carts
 router.get("/", async (req, res) => {
     const carritos = await cartsService.getCarts();

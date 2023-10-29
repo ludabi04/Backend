@@ -27,9 +27,10 @@ router.post("/login", passport.authenticate("loginLocalStrategy",{
 
 router.post("/profile", async (req, res) => {
     try {
+        res.send({ message: "necesitas iniciar session ya" })
         console.log("daata", data)
     } catch (error) {
-        res.send("necesitas iniciar session ya")
+        res.send({ message: "necesitas iniciar session ya" })
     }
 });
 

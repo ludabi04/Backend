@@ -1,4 +1,6 @@
 * {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
     background-color: skyblue;
     padding: 0;
     margin: 0;
@@ -34,7 +36,11 @@
    justify-content: space-around;
    align-items: center;
    height: 2rem;
-   background-color: skyblue
+    background-color: rgb(62, 62, 123);
+   position: sticky;
+   padding: 2rem;
+    top: 0;
+    z-index: 1;
 }
 
 .menuItem {
@@ -53,13 +59,7 @@
   display: flex;
   flex-direction: column;
 }
-.btnCart {
-    position: sticky;
-    top:10%;
-    display: inline;
-    left: 99%;
-    z-index: 1!important;
-}
+
 
 .imgCart {
   width: 2rem;
@@ -69,7 +69,6 @@
 .add {
     grid-area: add;
     text-align: center;
-    
 }
 
 .see {

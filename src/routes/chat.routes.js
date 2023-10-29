@@ -36,7 +36,7 @@ router.delete("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
     try {
-        const updMsg = await chatService.updateMsg(id);
+        const updMsg = await chatService.updateMsg(id, message);
         res.json({ status: "succes", data: updMsg })
     } catch (error) {
         console.log("error")

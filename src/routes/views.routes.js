@@ -120,12 +120,14 @@ router.get("/fail-login", async (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-     if(req.user?.email){
-         const userEmail = req.user.email;
-         const userName = req.user.first_name;
+    if(req.user?.email){
+        const userEmail = req.user.email;
+        const userName = req.user.first_name;
         res.render("profileView",{userEmail});
     } else {
-        res.redirect("/login");
+        //  res.send("no estas logyueado")
+        console.log("entro aca")
+        res.redirect("/login?mensaje=PRIMERO DEBES INICIAR SESION");
     }
 });
 
@@ -134,8 +136,9 @@ router.get("/profile", (req, res) => {
 
 router.get("/login", async (req, res) => {
     try {
-       
-        res.render("loginView")
+        const mensaje = req.query.mensaje;
+        console.log("mensaje:", mensaje)
+  res.render("loginView", { message: mensaje});
     } catch (error) {
         
     }

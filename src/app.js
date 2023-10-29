@@ -136,10 +136,11 @@ socketServer.on("connection", async (socket) => {
         const chat = await chatService.getMessages();
         socket.emit("msgActualizados", chat);
      })
-    socket.on("update", async (data) => {
-        console.log("msg para update", data)
-        chatService.updateMsg(data);
+    socket.on("updMsg", async (id, newMsg) => {
+        console.log("msg para update", id, newMsg)
+        const updMessages = await chatService.updateMsg(id, newMsg);
         const chat = await chatService.getMessages();
+        console.log("chats", chat)
         socket.emit("msgActualizados", chat);
     });
 

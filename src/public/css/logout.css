@@ -1,6 +1,6 @@
-* {
-    background-color: skyblue;
+*{
     box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
 }
 .menu{
    display: flex;
@@ -47,7 +47,7 @@
 .menuEnd {
     text-decoration: none;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    color: grey;
     font-size: 1.3rem;
 }
 

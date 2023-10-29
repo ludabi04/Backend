@@ -41,12 +41,13 @@ async delMessages(id) {
 
 
 async updateMsg(id, newMessage) {
-        try {
-            const result = await this.model.findByIdAndUpdate(id, newMessage); 
+    try {
+        console.log("Id a actualizar y msgNuevo", id, {message:newMessage})
+        const result = await this.model.findByIdAndUpdate(id,  {message:newMessage}); 
             return result;
         } catch (error) {
-            console.log("error al obtener prodcutos", error.message)
-            throw new Error("error al crear el producto")
+            console.log("error al actualizar mensaje", error.message)
+            throw new Error("error al actualizar mensaje")
 
         }
     };

@@ -1,3 +1,9 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+
 .title {
     text-align: center;
     padding-top: 3rem;
