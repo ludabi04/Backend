@@ -1,8 +1,22 @@
 import dotenv from "dotenv";
 import path from "path";
 import { __dirname } from "../utils.js";
+import { Command } from "commander"; 
 
-const pathEnv = path.join(__dirname, "./.env.development");
+const program = new Command();
+
+//especifico argumentos
+
+program
+    .option("--mode <modo>", "modo o entorno de trabajo", "development");
+
+program.parse();
+const args = program.opts();
+console.log(args)
+
+const envMode = args.mode;
+
+const pathEnv = envMode === "development" ? path.join(__dirname, "./.env.development") : path.join(__dirname, "./.env.production");
 dotenv.config({
     path:pathEnv
 });
