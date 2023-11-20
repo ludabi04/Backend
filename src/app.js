@@ -27,14 +27,11 @@ const managerProductService = new productsManagerMongo();
 const managerChatService = new messagesManagerMongo();
 const managerCartService = new cartsManagerMongo();
 const managerUserService = new UsersManagerMongo()
-console.log(managerProductService)
-console.log(managerChatService)
-console.log(managerCartService) 
-console.log(managerUserService) 
+
 
 
 //servidor express
-const port = 8080;
+const port = config.server.port;
 const app = express();
 //servidor expres con el protocolo http
 const httpServer = app.listen(port, () => console.log("server funcionando"))
@@ -98,9 +95,7 @@ socketServer.on("connection", async (socket) => {
     const limitTotal = totalProd.length
     const products = await productsService.getProductsLimit(limitTotal, 1)
     const carritos = await cartsService.getCarts();
-    // console.log("prod home", products)
     socket.emit("reenvio", mensajes);
-    console.log("prod docs", products.totalDocs)
     socket.emit(("productosGuardados"), products.docs);
     // se conecta un usuario y le manda los productos
 
@@ -109,7 +104,6 @@ socketServer.on("connection", async (socket) => {
     socket.on("limiteElegido", async (limit)=>{
         const productsLimit = await productsService.getProductsLimit(limit)
         socket.emit("dataFilter", productsLimit.docs)
-        console.log("nuevos limit", productsLimit)
     })
     socket.emit(("productosActualizados"), products.docs);
     // recibir los datos del producto desde el 
@@ -119,7 +113,6 @@ socketServer.on("connection", async (socket) => {
         socket.emit("productosActualizados", products);
     });
     socket.on("eliminarElemento", async (data) => {
-        console.log("data para eliminar", data)
         await productsService.deleteProducts(data);
         const products = await productsService.getProducts();
         socket.emit("productosActualizados", products);
@@ -127,40 +120,31 @@ socketServer.on("connection", async (socket) => {
     socket.on("mensajeEnviado", async (data) => {
         await chatService.addMessages(data);
         const mensajes = await chatService.getMessages();
-        console.log("este es el mensaje", mensajes)
         socket.emit("reenvio", mensajes)
     })
      socket.on("eliminarMsg", async (data) => {
-        console.log("msg para eliminar", data)
         await chatService.delMessages(data);
         const chat = await chatService.getMessages();
         socket.emit("msgActualizados", chat);
      })
     socket.on("updMsg", async (id, newMsg) => {
-        console.log("msg para update", id, newMsg)
         const updMessages = await chatService.updateMsg(id, newMsg);
         const chat = await chatService.getMessages();
-        console.log("chats", chat)
         socket.emit("msgActualizados", chat);
     });
 
     //Agregando productos al carrito 
 
     socket.on("productoAAgregar", async (data) => {
-        console.log("idProd", data)
         const productaAgregar = await productsService.getProductsById(data);
-        // console.log("prod a agregaR", productaAgregar)
         const carritos = await cartsService.getCarts()
         const carritoFinal = carritos.length - 1;
         if(carritos < 1){
             const newCarro = await cartsService.addCart() 
             const idNewCart = newCarro._id
-            console.log("nuevo id", idNewCart)
             const prodIncart = await cartsService.prodInCarts(idNewCart, data)
-            console.log("ProdIncart", prodIncart)
         } else {
             const carritoFinalId = carritos[carritoFinal].id
-            console.log("carrito final", carritoFinalId)
             const prodInCart = await cartsService.prodInCarts(carritoFinalId, data)
         }
         
@@ -173,17 +157,13 @@ socketServer.on("connection", async (socket) => {
     }); 
 
     socket.on("masDetalles", async (id) => {
-        console.log("id carrito", id)
         const cartDetails = await cartsService.getCartsById(id)
         const prodCarts = cartDetails.products;
-        console.log("cart details", prodCarts[0].quantity)
         socket.emit("cartDetails", prodCarts)
     });
     socket.on("filtro", async (data)=>{
-        console.log("data", data)
         const filtrado = await productsService.getProductsPaginate(data);
         socketServer.emit("dataFilter", filtrado)
-        console.log("filtrado", filtrado)
     }) 
     
 

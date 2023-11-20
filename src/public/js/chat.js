@@ -1,5 +1,4 @@
 const socketClient = io();
-console.log("Js para mensajes")
 
 
 const createchatForm = document.getElementById("createMessage");
@@ -13,7 +12,6 @@ createchatForm.addEventListener("submit", (e) => {
     };
     jsonData.price = parseInt(jsonData.price);
     socketClient.emit("mensajeEnviado", jsonData);
-    console.log("jsonData", jsonData);
     //envio el objeto de info del producto al servidor
     createchatForm.reset();
 });
@@ -21,7 +19,6 @@ createchatForm.addEventListener("submit", (e) => {
 
 const mensajes = document.getElementById("msgHistory")
 socketClient.on("reenvio", (data) => {
-    console.log("data recibida", data)
     let chatElem = "";
     data.forEach(elm => {
         chatElem +=
@@ -60,7 +57,6 @@ socketClient.on("reenvio", (data) => {
 });
 
 function eliminarMsg(id){
-    console.log("elminando", id);
     socketClient.emit("eliminarMsg", id)
 };
 
@@ -68,7 +64,6 @@ function eliminarMsg(id){
 function updateMsg(id, newMessage) {
     const nuevoMsg = document.getElementById("nuevoMensaje")
     const nwMsgValor = nuevoMsg.value
-    console.log("id a updetear", id, nwMsgValor);
     socketClient.emit("updMsg", id, nwMsgValor)
     
 };
@@ -77,7 +72,6 @@ function updateMsg(id, newMessage) {
 
 
 socketClient.on("msgActualizados", (data) => {
-    console.log("data recibida", data)
     let chatElem = "";
     data.forEach(elm => {
         chatElem +=

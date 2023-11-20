@@ -40,7 +40,6 @@ router.post("/", async (req, res) => {
         const prodInfo = req.body;
         const prodInfoAdd = await productsService.addProduct(prodInfo);
         res.json({ message: "agregado correctamente", data: prodInfoAdd });
-        console.log("producto", prodInfo)
         } catch (error) {
         res.send(error.message)
         }
@@ -50,9 +49,7 @@ router.post("/", async (req, res) => {
 router.put("/:prodId", async (req, res) => {
     try {
         const productId = parseInt(req.params.prodId);
-        console.log("productID"+productId)
         const productUpdate = req.body;
-        console.log("ProductUpdate"+productUpdate)
         const product = await productsService.updateProductsById(productId, productUpdate)
         res.json({ message: "producto por id" , data:productUpdate});
     } catch (error) {

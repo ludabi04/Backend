@@ -1,5 +1,4 @@
 const socketClient = io();
-console.log("socket js para el front");
 
 const carts = document.getElementById("carritos")
 
@@ -7,7 +6,6 @@ function eliminarCart(id) {
     socketClient.emit("eliminarCart", id)
 }
 function consultarMas(id) {
-    console.log(id)
     socketClient.emit("masDetalles", id)
 }
 const detallesCarrito = document.getElementById("cartDetails");
@@ -17,7 +15,6 @@ socketClient.on("cartDetails", (data) => {
     let pageDetails = "";
     for (let index = 0; index < products.length; index++) {
         const element = products[index];
-        console.log("elementos", element)
         pageDetails +=
             
             ` <div class="card">

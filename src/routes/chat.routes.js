@@ -30,7 +30,6 @@ router.delete("/", async (req, res) => {
         const delMsg = await chatService.delMessages(_id);
         res.json({ status: "succes", data: delMsg })
     } catch (error) {
-        console.log("error")
     }
 })
 
@@ -39,7 +38,6 @@ router.put("/", async (req, res) => {
         const updMsg = await chatService.updateMsg(id, message);
         res.json({ status: "succes", data: updMsg })
     } catch (error) {
-        console.log("error")
     }
 })
 

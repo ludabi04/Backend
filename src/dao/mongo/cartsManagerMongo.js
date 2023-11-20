@@ -11,7 +11,6 @@ export class cartsManagerMongo {
             const result = await this.model.create(data);
             return result;
         } catch (error) {
-            console.log("error al agregar el carro", error.message)
             throw new Error("error al crear el carroooo")
 
         }
@@ -21,7 +20,6 @@ export class cartsManagerMongo {
             const result = await cartsModel.find();
             return result;
         } catch (error) {
-            console.log("error al obtener el carro", error.message)
             throw new Error("error al obtener el carro");
 
         }
@@ -29,10 +27,8 @@ export class cartsManagerMongo {
     async getCartsById(cId) {
         try {
             const result = await this.model.findById(cId).populate("products.productId").lean();
-            console.log("resultado", result)
             return result;
         } catch (error) {
-            console.log("error getCartsById", error.message)
             throw new Error("error al obtener el producto");
 
         }
@@ -48,7 +44,6 @@ export class cartsManagerMongo {
             if (productExist) {
                 productExist.quantity += 1
                 const result = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true });
-                console.log(result)
             } else {
             const newProdCart = {
                 productId: prodId,
@@ -57,12 +52,10 @@ export class cartsManagerMongo {
                 const result = cartsExist.products.push(newProdCart)
                 const finalResult = await this.model.findByIdAndUpdate(cartId, cartsExist, { new: true });
                 return finalResult;
-                console.log("result", finalResult)
             
                 }
         }
  catch (error) {
-            console.log("error prodInCarts", error.message)
             throw new Error("error al obtener el producto");  
 
         }
@@ -70,7 +63,6 @@ export class cartsManagerMongo {
     
     async prodBycarts(cartId) {
         try {
-            console.log("cartID", cartId)
             const prodCart = await cartsService.getCartsById(cartId)
             return prodCart;
         } catch (error) {
@@ -86,7 +78,6 @@ export class cartsManagerMongo {
             const result = await this.model.updateOne({ _id: cartId, prodId, productExists });
             return result;
         } catch (error) {
-            console.log("error al obtener prodcutos", error.message)
             throw new Error("error al actualizar el producto");
 
         }
@@ -96,7 +87,6 @@ export class cartsManagerMongo {
         const result = await this.model.findByIdAndDelete(dato);
             return result;
         } catch (error) {
-            console.log("error al eliminar productos")
             throw new Error("error al eliminar el producto");
         }}
 

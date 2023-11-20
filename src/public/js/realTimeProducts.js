@@ -1,4 +1,3 @@
-console.log("socket js para el front");
 
 const socketClient = io();
 
@@ -18,14 +17,12 @@ createProductForm.addEventListener("submit", (e) => {
     };
     jsonData.price = parseInt(jsonData.price);
     socketClient.emit("addProduct", jsonData);
-    console.log("jsonData", jsonData);
     //envio el objeto de info del producto al servidor
     createProductForm.reset();
 });
 
 function eliminar(id) {
     socketClient.emit("eliminarElemento", id)
-    console.log("elminando", id);
 }
 
 
@@ -93,7 +90,6 @@ function addCart(id) {
     background: "linear-gradient(to right, #00b09b, #96c93d)",
   },
 }).showToast();
-    console.log("agregar al carrito", id);
     
 
 }

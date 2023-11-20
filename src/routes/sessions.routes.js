@@ -28,7 +28,6 @@ router.post("/login", passport.authenticate("loginLocalStrategy",{
 router.post("/profile", async (req, res) => {
     try {
         res.send({ message: "necesitas iniciar session ya" })
-        console.log("daata", data)
     } catch (error) {
         res.send({ message: "necesitas iniciar session ya" })
     }
@@ -50,9 +49,6 @@ router.get(config.github.callbackUrl, passport.authenticate("signupGithubStrateg
 
 //desloguear usuario
 router.get("/logout", async (req, res) => {
-
-
-    console.log("usuario conectado:", req.session);
     req.session.destroy((err) => {
         if (err) return res.send("no se pudo eliminar sesion");
         res.send(`<body>

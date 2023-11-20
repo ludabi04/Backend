@@ -1,4 +1,3 @@
-console.log("archivo js para la vista home")  
 
 const socketClient = io();
 
@@ -12,24 +11,12 @@ function update() {
     var select = document.getElementById('opciones');
     var option = select.options[select.selectedIndex];
     socketClient.emit("limiteElegido", select.value)
-    console.log(select.value)
 }
 
 
 
-
-
-// function changePage() {
-//     const verPage = document.getElementById("pagina").value
-//     const verQuantity = document.getElementById("resultados").value
-//     socketClient.emit("paginado", verPage, verQuantity)
-//     console.log(verPage, verQuantity)
-// }
-
-
 function filtrar(filtro) {
     socketClient.emit("filtro", filtro);
-    console.log("filtro", filtro)
 }
 
 

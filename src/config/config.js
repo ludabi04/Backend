@@ -1,10 +1,17 @@
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+import { __dirname } from "../utils.js";
+
+const pathEnv = path.join(__dirname, "./.env.development");
+dotenv.config({
+    path:pathEnv
+});
 
 
 export const config = {
     server:{
-        secretSession: process.env.SECRET_SESSION
+        secretSession: process.env.SECRET_SESSION,
+        port: process.env.PORT
     },
     mongo:{
         url: process.env.MONGO_URL
@@ -15,3 +22,4 @@ export const config = {
         clientSecret: process.env.GITHUB_CLIENT_SECRET
     }
 };
+console.log("config", config)
