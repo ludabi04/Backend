@@ -23,11 +23,13 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.3",
     "mongoose-paginate-v2": "^1.7.4",
+    "nodemailer": "^6.9.7",
     "passport": "^0.6.0",
     "passport-github": "^1.1.0",
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
     "socket.io": "^4.7.2",
-    "toastify-js": "^1.12.0"
+    "toastify-js": "^1.12.0",
+    "twilio": "^4.19.0"
   }
 }

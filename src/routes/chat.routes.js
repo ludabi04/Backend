@@ -5,7 +5,6 @@ const router = Router();
 
 
 
-
 router.get("/", async (req, res) => {
     try {
         const messages = await chatService.getMessages();

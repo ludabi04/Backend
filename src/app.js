@@ -22,11 +22,15 @@ import { UsersManagerMongo } from "./dao/mongo/usersManagerMongo.js";
 import passport from "passport";
 import { initializePassport } from "./config/passport.config.js";
 import { config } from "./config/config.js";
+import { transporter } from "./config/gmail.js";
+import { twilioClient } from "./config/twilio.js";
+
 
 const managerProductService = new productsManagerMongo();
 const managerChatService = new messagesManagerMongo();
 const managerCartService = new cartsManagerMongo();
 const managerUserService = new UsersManagerMongo()
+
 
 
 
@@ -56,11 +60,7 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 //conexion a bBDD
-
-
 
 app.use(express.urlencoded({extended:true})) // permite caracteres especiales
 app.use(express.json());
@@ -85,6 +85,55 @@ app.use(viewsRouter);
 // app.use("/chat", chatRouter)
 // app.use("/api/products", productRouter);
 app.use("/", usersRouter);
+
+
+const emailTemplate = `<div>
+        <h1>Bienvenido!!</h1>
+        <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/portals_3/2x1_SuperMarioHub.jpg" style="width:250px"/>
+        <p>Ya puedes empezar a usar nuestros servicios</p>
+        <a href="https://www.google.com/">Explorar</a>
+</div>`
+
+app.post("/send-mail", async (req, res) => {
+    try {
+        const result = await transporter.sendMail({
+            from: config.gmail.account,
+            to: "ludabi@live.com",
+            subject: "Tu registro",
+            html: `<div>
+        <h1>Bienvenido!!</h1>
+        <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/portals_3/2x1_SuperMarioHub.jpg" style="width:250px"/>
+        <p>Ya puedes empezar a usar nuestros servicios</p>
+        <a href="https://www.google.com/">Explorar</a>
+</div>`,
+        });
+        console.log(result)
+        res.json({ status: "success", message: "Envio correcto" })
+    } catch (error) {
+        console.log(error);
+        res.json({ status: "error", message: "Hubo un error al enviar el correo" })
+    }
+    
+});
+
+app.post("/send-sms", async (req, res) => {
+    try {
+        const result = await twilioClient.messages.create({
+            from: config.twilio.phone,
+            to: "+541168598612",
+            body: "Su pedido fue realizado con éxito"
+        });
+        res.json({status:"succes", message:"Envio exitoso"})
+    } catch (error) {
+        console.log(error)
+        res.json({ status: "error", message: "Hubo un error al enviar el SMS" })
+    }
+})
+
+
+
+
+
 
 //configuracion del socket server
 
