@@ -94,7 +94,7 @@ const emailTemplate = `<div>
         <a href="https://www.google.com/">Explorar</a>
 </div>`
 
-app.post("/send-mail", async (req, res) => {
+app.get("/send-mail", async (req, res) => {
     try {
         const result = await transporter.sendMail({
             from: config.gmail.account,
@@ -104,7 +104,7 @@ app.post("/send-mail", async (req, res) => {
         <h1>Bienvenido!!</h1>
         <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/portals_3/2x1_SuperMarioHub.jpg" style="width:250px"/>
         <p>Ya puedes empezar a usar nuestros servicios</p>
-        <a href="https://www.google.com/">Explorar</a>
+        <a href="http://localhost:8080/">Explorar</a>
 </div>`,
         });
         console.log(result)
