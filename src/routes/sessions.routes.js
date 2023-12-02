@@ -1,37 +1,48 @@
 import { Router } from "express";
 import { userService } from "../dao/index.js";
-// import { createHash, inValidPassword } from "../utils.js";
-// import { usersModel } from "../dao/mongo/models/users.model.js";
+import { createHash, inValidPassword } from "../utils.js";
+import { usersModel } from "../dao/mongo/models/users.model.js";
 import passport from "passport";
 import { config } from "../config/config.js";
+import { generateToken } from "../utils.js";
 
 const router = Router();
 
-router.post("/signup", passport.authenticate("signupLocalStrategy",{
+router.post("/signup", passport.authenticate("signupLocalStrategy", {
+    session: false,
     failureRedirect:"fail-signup"
-}) , async(req,res)=>{
-    res.render("loginView",{message:"Usuario registrado correctamente"});
+}) , (req,res)=>{
+    res.redirect("/login");
 });
 
 router.post("/fail-signup", async (req, res) => {
     res.render("signupView", {error:" no se pudo registrar el usuario"})
 })
-router.post("/fail-login", async (req, res) => {
-    res.render("loginView", {error:" no se pudo registrar el usuario"})
-})
-router.post("/login", passport.authenticate("loginLocalStrategy",{
+router.get("/fail-login", (req,res)=>{
+    res.render("login",{error:"No se pudo iniciar sesion para el usuario"});
+});
+router.post("/login", passport.authenticate("loginLocalStrategy", {
+    session: false,
     failureRedirect:"/fail-login"
-}) , async(req,res)=>{
-    res.redirect("/profile");
+}), (req, res) => {
+    console.log("login-user", req.user);
+    //generamos el token del usuario
+    const token = generateToken(req.user);
+    //enviamos el token al cliente
+    res.cookie("cookiesToken",token).json({status:"success", message:"login exitoso"});
+    // res.redirect("/profile")
 });
 
-router.post("/profile", async (req, res) => {
-    try {
-        res.send({ message: "necesitas iniciar session ya" })
-    } catch (error) {
-        res.send({ message: "necesitas iniciar session ya" })
-    }
+router.post("/profile", passport.authenticate("jwtAuth", {
+    session: false,
+    failureRedirect: "/fail-auth"
+}), (req, res) => {
+    res.json({message:"peticion recibida"})
 });
+
+router.get("/fail-auth", (req, res) => {
+    res.json({status:"error", message:"token invalido"})
+})
 
 //Ruta de registro con github
 router.get("/signup-github", passport.authenticate("signupGithubStrategy"));

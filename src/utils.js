@@ -8,10 +8,10 @@ console.log("__dirname", __dirname) //Users/lucasbianco/Desktop/Coder/BACKEND/Ba
 
 //__dirname va a ser la ruta de la carpeta donde esta la carpeta
 
-const PRIVATE_KEY = "ldb";
+export const PRIVATE_KEY = "ldb";
 
 export const generateToken = (user) => {
-    const token = jwt.sign({ name: user.name, email: user.email }, PRIVATE_KEY, { expiresIn: "24h" })
+    const token = jwt.sign({ name: user.first_name, email: user.email, role: user.role }, PRIVATE_KEY, { expiresIn: "24h" })
     return token;
 }
 export const createHash = (password) => {

@@ -88,27 +88,21 @@ router.get("/fail-login", async (req, res) => {
     }
 });
 
+
 router.get("/profile", (req, res) => {
     if(req.user?.email){
-        const userEmail = req.user.email;
-        const userName = req.user.first_name;
         res.render("profileView",{userEmail});
     } else {
         //  res.send("no estas logyueado")
-        res.redirect("/login?mensaje=PRIMERO DEBES INICIAR SESION");
+        res.redirect("/login");
     }
 });
 
 
     
 
-router.get("/login", async (req, res) => {
-    try {
-        const mensaje = req.query.mensaje;
-  res.render("loginView", { message: mensaje});
-    } catch (error) {
-        
-    }
+router.get("/login",(req,res)=>{
+    res.render("loginView");
 });
 
 
