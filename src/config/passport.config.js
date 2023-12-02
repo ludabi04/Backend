@@ -5,7 +5,12 @@ import { usersModel } from "../dao/mongo/models/users.model.js";
 import { userService } from "../dao/index.js";
 import { config } from "./config.js";
 import GithubStrategy from "passport-github2";
+import { PRIVATE_KEY } from "../utils.js";
+import jwt from "passport-jwt";
 
+
+const JWTStrategy = jwt.Strategy;
+const extractJwt = jwt.ExtractJwt; //Extraer el token (cookie,query params, body, headers)
 
 //localStategy: solo usa dos variables username y passwor
 export const initializePassport = () => {
@@ -102,7 +107,31 @@ export const initializePassport = () => {
                 }
             }
         ));
-
+    passport.use("jwtAuth", new JWTStrategy(
+            {
+                //Extraer la informacion del token
+                jwtFromRequest:extractJwt.fromExtractors([cookieExtractor]),
+                secretOrKey:PRIVATE_KEY
+            },
+            async (jwtPayload,done)=>{
+                console.log("jwtPayload",jwtPayload);
+                try {
+                    return done(null,jwtPayload); //req.user = info del token
+                } catch (error) {
+                    return done(error);
+                }
+            }
+        ));
+};
+const cookieExtractor = (req)=>{
+    let token;
+    if(req && req.cookies){ //req?.cookies
+        token = req.cookies["cookiesToken"];
+    } else {
+        token = null;
+    }
+    return token;
+};
 
     passport.serializeUser((user, done) => {
         done(null, user._id)
@@ -112,4 +141,3 @@ export const initializePassport = () => {
         const user = await usersModel.findById(id);
         done(null, user);//req.user= informaicon del usuraio que traemos de la bbdd
     })
-}
